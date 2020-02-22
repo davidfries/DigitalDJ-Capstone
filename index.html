@@ -19,7 +19,8 @@
             <!-- loop through each object in the incoming data variable "message" -->
           <div v-for="item in message" class="notification">
             {{item.id}}.
-            {{ item.title }} 
+            <input v-model="item.title">
+            <h2>{{item.title}}</h2>
             <!-- displays the tag is-danger css class if todo isn't complete, opposite for is-success -->
             <div v-bind:class="{'tag is-danger':!item.completed,'tag is-success':item.completed}">Completed?</div>
           </div>
