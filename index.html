@@ -19,6 +19,7 @@
             <!-- loop through each object in the incoming data variable "message" -->
           <div v-for="item in message" class="notification">
             {{item.id}}.
+            <!-- binds this input to the data in item.title object. allows live editing that's reflected in the local data -->
             <input v-model="item.title">
             <h2>{{item.title}}</h2>
             <!-- displays the tag is-danger css class if todo isn't complete, opposite for is-success -->
