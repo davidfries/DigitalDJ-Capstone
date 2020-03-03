@@ -6,8 +6,8 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item href="#">
-                Home
+            <b-navbar-item>
+                <router-link :to="{name:'home'}">Home</router-link>
             </b-navbar-item>
             <b-navbar-item >
                 <router-link :to="{name:'rooms'}">Rooms</router-link>

@@ -4,22 +4,27 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <Navbar username="testusr"></Navbar>
-    <MainPage>
-      
-      
-    </MainPage>
-    <router-view></router-view>
+    <section class="hero is-success is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <router-view></router-view>
+    
+    </div>
+  </div>
+  </section>
+    
+    
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import MainPage from './components/MainPage.vue'
+// import MainPage from './components/MainPage.vue'
 import Navbar from './components/Navbar.vue'
 export default {
   name: 'App',
   components: {
-    MainPage,
+    // MainPage,
     Navbar
   }
 }
