@@ -6,8 +6,9 @@
     <Navbar username="testusr"></Navbar>
     <MainPage>
       
-      <router-view></router-view>
+      
     </MainPage>
+    <router-view></router-view>
   </div>
 </template>
 
