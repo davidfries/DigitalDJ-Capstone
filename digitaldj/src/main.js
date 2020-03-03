@@ -6,7 +6,7 @@ import Buefy from 'buefy'
 import Rooms from './components/Rooms.vue'
 
 Vue.use(Buefy)
-
+Vue.use(VueRouter)
 Vue.config.productionTip = false
 const routes = [
   { path: '/rooms', name:"rooms", component: Rooms }
@@ -16,7 +16,6 @@ const router = new VueRouter({
 })
 
 new Vue({
-  
+  router:router,
   render: h => h(App),
 }).$mount('#app')
-Vue.use(router)
