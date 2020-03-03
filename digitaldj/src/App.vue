@@ -4,7 +4,10 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <Navbar username="testusr"></Navbar>
-    <MainPage></MainPage>
+    <MainPage>
+      
+      <router-view></router-view>
+    </MainPage>
   </div>
 </template>
 

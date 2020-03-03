@@ -9,9 +9,9 @@
             <b-navbar-item href="#">
                 Home
             </b-navbar-item>
-            <b-navbar-item href="#">
-                Rooms
-            </b-navbar-item>
+            <b-navbar-item >
+                <router-link :to="{name:'rooms'}">Rooms</router-link>
+                </b-navbar-item>
             <b-navbar-dropdown label="Info">
                 <b-navbar-item href="#">
                     About

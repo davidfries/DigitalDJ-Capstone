@@ -8,9 +8,30 @@ export default {
     data(){
         return{
             // pass data as json object
-            data:[],
+            data:[{
+                "id":1,'room_name':"Room1",'listeners':16,'genre':'Classic Rock'
+            }],
             // name of columns of table, json header name
-            columns:[]
+            columns:[{
+                field:'id',
+                label:'ID',
+                numeric:true
+            },
+            {
+                field:'room_name',
+                label: 'Room Name'
+            },
+            {
+                field:'listeners',
+                label: 'Number of Listeners',
+                numeric:true
+            },
+            {
+                field:'genre',
+                label:"Genre"
+
+            }
+            ]
         }
     }
 }
