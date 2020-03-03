@@ -21,10 +21,14 @@ export default {
 }
 </script>
 
+// THIS IS WHERE YOU EDIT COLORS FOR CSS PLEASE REFERENCE BULMA DOCS
 <style lang="scss">
 @import "~bulma/sass/utilities/_all";
-$primary: #f19d00;
-$danger: #f13800;
+$primary: #3379AE;
+$danger: #FC960F;
+$info: #7EB1D8;
+$success: #0A4B7D;
+$warning: #FFAC3E;
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
