@@ -28,9 +28,7 @@
                     <a class="button is-primary">
                         <strong>Sign up</strong>
                     </a>
-                    <a class="button is-danger">
-                        Log in
-                    </a>
+                    <login></login>
                 </div>
             </b-navbar-item>
         </template>
@@ -38,10 +36,14 @@
 </template>
 
 <script>
+import Login from './Login.vue'
 export default {
   name: 'Navbar',
   props: {
     username: String
+  },
+  components:{
+      Login
   }
 }
 </script>
