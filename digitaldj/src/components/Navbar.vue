@@ -25,8 +25,8 @@
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
+                    <a>
+                        <register></register>
                     </a>
                     <login></login>
                 </div>
@@ -37,13 +37,14 @@
 
 <script>
 import Login from './Login.vue'
+import Register from './Register.vue'
 export default {
   name: 'Navbar',
   props: {
     username: String
   },
   components:{
-      Login
+      Login,Register
   }
 }
 </script>
