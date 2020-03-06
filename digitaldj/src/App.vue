@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 // import HelloWorld from './components/HelloWorld.vue'
 // import MainPage from './components/MainPage.vue'
 import Navbar from './components/Navbar.vue'
@@ -26,7 +27,8 @@ export default {
   components: {
     // MainPage,
     Navbar
-  }
+  },
+  
 }
 </script>
 
