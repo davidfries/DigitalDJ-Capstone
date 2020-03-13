@@ -6,7 +6,15 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 db=DigitalDJBackend()
 # app.config['CORS_HEADERS'] = 'Content-Type'
 
-
+@app.route('/returnuser',methods=['GET','POST'])
+def returnuser():
+    if request.method=='POST':
+        # if(jsonify(request.get_json())['username']):
+        return request.get_json()['username']  
+        # else:
+        #     return "empty username field" 
 
 if __name__ == '__main__':
     app.run()
+
+   
