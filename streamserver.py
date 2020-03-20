@@ -1,41 +1,50 @@
-import sounddevice as sd
+import websockets
 import asyncio
 import numpy as np 
 import sys
-sd.default.device=4
-async def record_buffer(buffer, **kwargs):
-    loop = asyncio.get_event_loop()
-    event = asyncio.Event()
-    idx = 0
+import json
 
-    def callback(indata, frame_count, time_info, status):
-        nonlocal idx
-        if status:
-            print(status)
-        remainder = len(buffer) - idx
-        if remainder == 0:
-            loop.call_soon_threadsafe(event.set)
-            raise sd.CallbackStop
-        indata = indata[:remainder]
-        buffer[idx:idx + len(indata)] = indata
-        idx += len(indata)
+users=[]
+async def notify_connection():
+    if users:
+        print("notify connection event")
+        await asyncio.wait([user.send("New user connected") for user in users])
+async def notify_users():
+    if users:
+        print("notify user event")
+        await asyncio.wait([user.send(users_event()) for user in users])
+def users_event():
+    return json.dumps({"type:":"users","count":len(users)})
 
-    stream = sd.InputStream(callback=callback, dtype=buffer.dtype,
-                            channels=buffer.shape[1], **kwargs)
-    with stream:
-        await event.wait()
+async def adduser(websocket):
+    print("add user event")
+    users.append(websocket)
+    await notify_users()
 
-async def main(frames=150_000, channels=1, dtype='float32', **kwargs):
-    buffer = np.empty((frames, channels), dtype=dtype)
-    print('recording buffer ...')
-    await record_buffer(buffer, **kwargs)
-    # print('playing buffer ...')
-    # await play_buffer(buffer, **kwargs)
-    print('done')
-    print(buffer)
-
-if __name__ == "__main__":
+async def receivestreamconnection(websocket,path):
+    # loop=asyncio.get_event_loop()
+    await adduser(websocket)
     try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        sys.exit('\nInterrupted by user')
+        await websocket.send("Connected!")
+        async for message in websocket:
+            data=json.loads(message)
+            if data['action']=="user_connection":
+                await notify_connection()
+    # url="ws://localhost:8765"
+    # async with websockets.connect(url) as websocket:
+    # users.append(websocket)
+    # print("user connected")
+    # await websocket.send("ready")
+    # data= websocket.recv()
+    
+    except Exception as e:
+        print(e)
+        print("bad shit happened")
+    # print(data)
+    # print("Connected users {}".format(len(users)))
+
+server=websockets.serve(receivestreamconnection,"localhost",8765)
+
+asyncio.get_event_loop().run_until_complete(server)
+asyncio.get_event_loop().run_forever()
+
