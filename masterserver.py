@@ -17,10 +17,14 @@ class MasterServer():
             c.settimeout(60)
             threading.Thread(target = self.receivestream(c)).start()
     def receivestream(self,c):
-        # while True:
-        data=c.recv(4096)
+        
+        while True:
+            
+            packet=c.recv(4096)
+            if not packet:break 
+            self.streamdata.append(packet)
         # print("receiving data")
-        print(pickle.loads(data))
+        print(pickle.loads(b"".join(self.streamdata)))
 
 if __name__ == "__main__":
     MasterServer().listen()

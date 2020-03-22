@@ -45,6 +45,9 @@ export default {
             },
             {
                 "id":2,'room_name':"Room2",'listeners':7,'genre':'Hard Rock'
+            },
+            {
+                "id":3,'room_name':"Room3",'listeners':17,'genre':'Hard Rock'
             }
             
             ],
