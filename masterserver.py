@@ -32,6 +32,7 @@ class MasterServer():
                 c.close()
                 break 
             self.streamdata.append(packet)
+            # print(len(self.streamdata))
         # print("receiving data")
         print(pickle.loads(b"".join(self.streamdata)))
 
