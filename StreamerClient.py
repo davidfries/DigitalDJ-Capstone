@@ -12,8 +12,9 @@ try:
 except:
     print('error in microphone binding')
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
-    print('created socket')
     
+    s.connect(("localhost",8889))
+    print('created socket')
     # s.connect(('127.0.0.1',8001))
     with loopback.recorder(samplerate=48000) as mic:
         while True:
@@ -21,7 +22,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
             print(data)
             # print(data)
             # comp = pickle.dumps(data)
-            s.connect(("localhost",8889))
+            
             print(len(pickle.dumps(data)))
             s.send(pickle.dumps(data))
             # sp.play(data)
