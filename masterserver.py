@@ -13,21 +13,29 @@ class MasterServer():
     def conn(self):
         print("starting listen thread")
         self.s.listen(5)
+    def sendstream(self):
+        print("would be sending the stream right now")
     def listen(self):
         print("listening for connections...")
         # threading.Thread(target=self.conn()).start()
-        self.s.listen(5)
+        self.s.listen(100)
         while True:
             
             c, addr = self.s.accept()
             print("accepting connection")
             c.settimeout(60)
-            threading.Thread(target = self.receivestream,args=(c,)).start()
+            msg=c.recv(15)
+            print(msg[4:])
+            if(msg[4:]==b"stream"):
+                threading.Thread(target = self.receivestream,args=(c,)).start()
+            elif(msg[4:]==b"mirror"):
+                threading.Thread(target = self.sendstream).start()
     def receivestream(self,c):
         print("receiving data")
         while True:
             
             packet=c.recv(4096)
+            print("packet length{}".format(len(packet)))
             if not packet:
                 c.close()
                 break 
