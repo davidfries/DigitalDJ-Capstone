@@ -3,15 +3,11 @@
         <h1>
             Song suggestion goes here
         </h1>
-        <h2>
+        <h2 class="subtitle">
             {{ count }} votes
         </h2>
-        <button v-on:click="count++">
-            Upvote
-        </button>
-        <button v-on:click="count--">
-            Downvote
-        </button>
+        <b-button type="is-primary" inverted icon-right="arrow-up-bold" v-on:click="count++"></b-button>
+        <b-button type="is-primary" inverted icon-right="arrow-down-bold" v-on:click="count--"></b-button>
     </div>
 </template>
 
