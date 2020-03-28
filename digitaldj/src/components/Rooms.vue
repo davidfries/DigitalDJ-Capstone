@@ -34,23 +34,22 @@
 </template> 
 
 <script>
+const axios = require('axios');
 
+
+    
+    
+    
+    
+    
+// console.log(allrooms)
 export default {
     name:'Rooms',
     data(){
+        
         return{
             // pass data as json object
-            data:[{
-                "id":1,'room_name':"Room1",'listeners':16,'genre':'Classic Rock'
-            },
-            {
-                "id":2,'room_name':"Room2",'listeners':7,'genre':'Hard Rock'
-            },
-            {
-                "id":3,'room_name':"Room3",'listeners':17,'genre':'Hard Rock'
-            }
-            
-            ],
+            data:[],
             // name of columns of table, json header name
             columns:[{
                 field:'id',
@@ -72,12 +71,22 @@ export default {
 
             },
             {
+                field:"room_security",
+                label:"Security"
+            },
+            {
                 field:'join',
                 label:'Join'
             }
 
             ]
         }
+    },mounted(){
+        axios.get('http://localhost:5000/rooms').then(resp=>{
+    console.log(resp.data[0].roomname)
+    this.data=resp.data
+
+})   
     }
 }
 </script>
