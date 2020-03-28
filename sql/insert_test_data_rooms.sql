@@ -1,0 +1,1 @@
+insert into rooms (roomid, roomname, quantity ,roomsecurity) values('123345','DJs test room',0,0)

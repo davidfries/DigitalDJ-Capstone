@@ -1,0 +1,1 @@
+create table rooms(roomid varchar(6),roomname varchar(50),quantity int, roomsecurity int,username varchar(50) )

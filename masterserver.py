@@ -2,6 +2,13 @@ import socket
 import threading
 import pickle
 from os import _exit
+
+class ClientSocket():
+    def __init__(self,key,s):
+        self.key=key 
+        self.s=s 
+
+
 class MasterServer():
     def __init__(self):
         self.host="localhost"
@@ -10,6 +17,7 @@ class MasterServer():
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #the SO_REUSEADDR flag tells the kernel to
         self.s.bind((self.host, self.port))
+        self.clientsockets=[]
     def conn(self):
         print("starting listen thread")
         self.s.listen(5)
@@ -23,9 +31,10 @@ class MasterServer():
             
             c, addr = self.s.accept()
             print("accepting connection")
-            c.settimeout(60)
+            # c.settimeout(60)
             msg=c.recv(15)
-            print(msg[4:])
+            if msg[:3]==b"key":
+                self.clientsockets.append(ClientSocket(msg[:3],c))
             if(msg[4:]==b"stream"):
                 threading.Thread(target = self.receivestream,args=(c,)).start()
             elif(msg[4:]==b"mirror"):
