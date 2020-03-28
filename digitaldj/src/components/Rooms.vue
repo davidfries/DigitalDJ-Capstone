@@ -10,6 +10,7 @@
         </tr>
       </thead>
       <tbody>
+          <!-- these need to match the fields below in column setup -->
         <tr v-for="row in data" :key="row.id">
           <td>{{row.room_name}}</td>
           <td>{{row.listeners}}</td>
