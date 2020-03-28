@@ -13,7 +13,10 @@ def returnuser():
         return request.get_json()['username']  
         # else:
         #     return "empty username field" 
-
+@app.route('/rooms',methods=['GET'])
+def getallrooms():
+    if request.method=='GET':
+        return jsonify(db.getrooms())
 if __name__ == '__main__':
     app.run()
 

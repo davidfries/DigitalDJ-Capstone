@@ -1,8 +1,8 @@
 import records
-
+from secrets import Secrets as pw
 class DigitalDJBackend():
     def __init__(self):
-        self.db=records.Database('sqlite:///test.db',connect_args={'check_same_thread': False})
+        self.db=records.Database(f'postgresql://digitaldj.cuxdpwvnnhxs.us-east-1.rds.amazonaws.com/digitaldj?user=digitaldj&password={pw.dbpw}')
         
     
     #AUTHENTICATION METHODS
@@ -20,6 +20,9 @@ class DigitalDJBackend():
 
 
     #ROOMS METHODS
+    def getrooms(self):
+        sql="select * from rooms"
+        return self.db.query(sql).as_dict(ordered=True)
 
     def createroom(self,roomname, quantity, security, owner):
         pass
