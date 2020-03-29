@@ -1,1 +1,1 @@
-insert into rooms (roomid, roomname, quantity ,roomsecurity) values('123345','DJs test room',0,0)
+insert into rooms (room_name, max_quantity, listeners,genre,room_security) values('DJs test room2',32,6,'Classic Rock',1)
