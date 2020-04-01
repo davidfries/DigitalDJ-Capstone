@@ -1,9 +1,13 @@
 import records
 from secrets import Secrets as pw
+import random
+import string
 class DigitalDJBackend():
     def __init__(self):
         self.db=records.Database(f'postgresql://digitaldj.cuxdpwvnnhxs.us-east-1.rds.amazonaws.com/digitaldj?user=digitaldj&password={pw.dbpw}')
+    def genid(self):
         
+        return ''.join(random.choice(string.ascii_lowercase+'0123456789'+string.ascii_uppercase) for i in range(10))
     
     #AUTHENTICATION METHODS
 
@@ -21,11 +25,12 @@ class DigitalDJBackend():
 
     #ROOMS METHODS
     def getrooms(self):
-        sql="select * from rooms"
+        sql="select * from rooms where room_security=0"
         return self.db.query(sql).as_dict(ordered=True)
 
-    def createroom(self,roomname, quantity, security, owner):
-        pass
+    def createroom(self,roomname, quantity, security, genre, owner=None):
+        sql="insert into rooms(room_name,genre,max_quantity,room_security,room_key) values(:room_name,:genre,:quantity,:room_security,:key)"
+        self.db.query(sql,room_security=security,quantity=quantity,room_name=roomname,genre=genre,key=self.genid())
 
     def deleteroom(self,roomid):
         pass
@@ -34,8 +39,17 @@ class DigitalDJBackend():
         pass
 
     #VOTING METHODS
+    def getsongs(self,room_key):
+        sql="select * from songs where room_key=:room_key"
+        return self.db.query(sql,room_key=room_key).as_dict(ordered=True)
 
-
+    def addsong(self,song_key,room_key,song_title):
+        sql="insert into songs values(:song_key,:room_key,:song_title)"
+        try:
+            self.db.query(sql,song_key=song_key,room_key=room_key,song_title=song_title)
+        except Exception as e:
+            print(e)
+            print("error in song add")
 
 
 

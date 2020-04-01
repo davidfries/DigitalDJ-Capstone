@@ -9,12 +9,9 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "buefy": "^0.8.15",
     "core-js": "^3.6.4",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.2",
-    "vue": "^2.6.11",
-    "vue-router": "^3.1.6"
+    "lodash": "^4.17.15",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",

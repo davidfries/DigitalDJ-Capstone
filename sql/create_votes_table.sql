@@ -1,0 +1,1 @@
+create table votes(id serial, room_key varchar(10), song_key varchar(10), vote_status int default 0)

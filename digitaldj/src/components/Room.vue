@@ -1,17 +1,18 @@
 <template>
     <div>
-        <a>
+            <AddSong></AddSong>
             <voting></voting>
-        </a>
+        
     </div>
 </template>
 
 <script>
 import Voting from './Voting.vue'
+import AddSong from './AddSong.vue'
 export default {
     name:"Room",
     components:{
-      Voting
+      Voting,AddSong
     }
 }
 </script>
