@@ -83,7 +83,7 @@ export default {
             isComponentModalActive: false,
             showModal:true,
             data:[{
-                'userid':1, 'email':"email@email.com", 'password':"pass123"
+                'client_key':1, 'email':"email@email.com", 'password':"pass123"
             }]
         }
     },
