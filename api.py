@@ -5,7 +5,15 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}).init_app(app)
 db=DigitalDJBackend()
 # app.config['CORS_HEADERS'] = 'Content-Type'
-
+@app.route('/getsongs',methods=['GET'])
+def getsongs():
+    return jsonify(db.getsongs(request.args.get("room_key")))
+@app.route('/addsong',methods=['POST'])
+def addsong():
+    if request.method=='POST':
+        data=request.get_json()
+        db.addsong(data['song_key'],data['room_key'],data['song_title'])
+        return "success!"
 @app.route('/returnuser',methods=['GET','POST'])
 def returnuser():
     if request.method=='POST':
