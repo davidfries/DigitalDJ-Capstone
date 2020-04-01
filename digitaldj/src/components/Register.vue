@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import axios from "axios"
 // const Login = {
 //         props: ['email', 'password'],
 //         template: `
@@ -77,16 +78,13 @@ export default {
     // components:{
     //     Login
     // },
-    props:['email', 'password', 'confirm'],
     data(){
         return {
             isComponentModalActive: false,
             showModal:true,
-            formProps: {
-                email:'email@email.com',
-                password:'hunter2',
-                confirm:'hunter2'
-            }
+            data:[{
+                'userid':1, 'email':"email@email.com", 'password':"pass123"
+            }]
         }
     },
     check: function (){
@@ -94,9 +92,10 @@ export default {
         var conf = document.getElementById("confirmPassword").value;
         if (pass != conf) {
             alert("Passwords do not match.");
-            return false;
         }
-        return true;
+        else{
+            axios.post('http://localhost:8080/#/', this.data)
+        }
     }
 }
 </script>

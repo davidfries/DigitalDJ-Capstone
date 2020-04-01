@@ -17,6 +17,11 @@ def returnuser():
 def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
+
+@app.route('/',method=='POST')
+def registeruser():
+    db.createuser(request.form['userid'],request.form['password'],request.form['email'])
+        
 if __name__ == '__main__':
     app.run()
 
