@@ -12,7 +12,7 @@ class Room():
         self.roomkey=roomkey 
 
     def clearclients(self):
-        clients.clear()
+        self.clients.clear()
     
 class ClientSocket():
     def __init__(self,key,s):
@@ -41,10 +41,10 @@ class MasterServer():
         self.s.listen(100)
         while True:
             
-            msg, addr = self.s.recv(100)
+            c, addr = self.s.recv(100)
             print("accepting a new connection from {}".format(addr))
             # c.settimeout(60)
-            # msg=c.recv(15)
+            msg=c.recv(15)
             if msg[4:]==b"clientweb":
                 if msg[10:]=="TODO:DATABASECHECK":
                     self.s.sendto("msg:authenticated",addr)
