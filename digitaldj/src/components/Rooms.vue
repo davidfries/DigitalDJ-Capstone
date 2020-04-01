@@ -16,7 +16,7 @@
           <td>{{row.listeners}}</td>
           <td>{{row.genre}}</td>
           <td>
-            <router-link class="button is-warning" :to="{name:'room',params:{id:row.id}}">Join Room</router-link>
+            <router-link class="button is-warning" :to="{name:'room',params:{id:row.room_key}}">Join Room</router-link>
           </td>
         </tr>
       </tbody>

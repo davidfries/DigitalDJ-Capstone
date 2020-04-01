@@ -3,6 +3,17 @@ import threading
 import pickle
 from os import _exit
 
+class Room():
+    def __init__(self,name,hostkey,roomkey,s):
+        self.name=name
+        self.hostkey=hostkey
+        self.clients=[]
+        self.s=s 
+        self.roomkey=roomkey 
+
+    def clearclients(self):
+        clients.clear()
+    
 class ClientSocket():
     def __init__(self,key,s):
         self.key=key 
@@ -18,6 +29,7 @@ class MasterServer():
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #the SO_REUSEADDR flag tells the kernel to
         self.s.bind((self.host, self.port))
         self.clientsockets=[]
+        self.rooms=[]
     def conn(self):
         print("starting listen thread")
         self.s.listen(5)
@@ -29,11 +41,16 @@ class MasterServer():
         self.s.listen(100)
         while True:
             
-            c, addr = self.s.accept()
-            print("accepting connection")
+            msg, addr = self.s.recv(100)
+            print("accepting a new connection from {}".format(addr))
             # c.settimeout(60)
-            msg=c.recv(15)
-            if msg[:3]==b"key":
+            # msg=c.recv(15)
+            if msg[4:]==b"clientweb":
+                if msg[10:]=="TODO:DATABASECHECK":
+                    self.s.sendto("msg:authenticated",addr)
+                    data=self.s.recv(100)
+                    if(data[4:]=="TODO:KEY IN ROOMS.room.key"):
+                        "room.clients.append(addr)"
                 self.clientsockets.append(ClientSocket(msg[:3],c))
             if(msg[4:]==b"stream"):
                 threading.Thread(target = self.receivestream,args=(c,)).start()
@@ -57,6 +74,7 @@ if __name__ == "__main__":
     threading.Thread(target=MasterServer().listen).start()
     # MasterServer().listen()
     while True:
+        print("Server Command Menu\n")
         cmd=input("Enter command: ")
         # print(cmd)
         if(cmd=="exit"):
