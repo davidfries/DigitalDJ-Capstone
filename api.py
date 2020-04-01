@@ -30,6 +30,11 @@ def addroom():
             print(e)
             print("error in room creation")
             return jsonify({"msg":"error in room creation {}".format(e)})
+@app.route('/newid',methods=['GET'])
+def getid():
+    if request.method=='GET':
+        data={"id":db.genid()}
+        return jsonify(data)
 if __name__ == '__main__':
     app.run()
 
