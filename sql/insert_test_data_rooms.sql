@@ -1,0 +1,1 @@
+insert into rooms (room_name, max_quantity, listeners,genre,room_security) values('DJs test room2',32,6,'Classic Rock',1)
