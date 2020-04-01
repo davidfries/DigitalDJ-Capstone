@@ -2,7 +2,7 @@ from flask import Flask,jsonify,request,redirect
 from flask_cors import CORS
 from backend import DigitalDJBackend
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}}).init_app(app)
 db=DigitalDJBackend()
 # app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -18,6 +18,13 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
+# SONG VOTE API METHOD
+@app.route('/songvote',methods=['POST'])
+def songvote():
+    if request.method=='POST':
+        data=request.get_json()
+        print(data)
+        return "voted!"
 
 @app.route('/addroom',methods=['POST'])
 def addroom():

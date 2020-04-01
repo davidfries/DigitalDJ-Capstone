@@ -38,6 +38,7 @@ export default {
                 "roomid":localStorage.getItem("roomid")
             }).catch(function(error){
                 console.log(error);
+                vm.count="0"
             })
             axios.get(`"http://localhost:5000/getsongvotecount/${localStorage.getItem("songid")}"`).then(resp => {
     //   console.log(resp.data[0].roomname);
@@ -46,6 +47,7 @@ export default {
         }
     },
     mounted(){
+        console.log("Roomid from local storage"+localStorage.getItem("roomid"))
         axios.get(`"http://localhost:5000/getsongvotecount/${localStorage.getItem("songid")}"`).then(resp => {
     //   console.log(resp.data[0].roomname);
       this.count = resp.data.count;

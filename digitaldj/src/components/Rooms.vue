@@ -16,7 +16,7 @@
           <td>{{row.listeners}}</td>
           <td>{{row.genre}}</td>
           <td>
-            <router-link v-on:click="setstorage(row.id)" class="button is-warning" :to="{name:'room',params:{id:row.room_key}}">Join Room</router-link>
+            <router-link v-on:click.native="setstorage(row.room_key)" class="button is-warning" :to="{name:'room',params:{id:row.room_key}}">Join Room</router-link>
           </td>
         </tr>
       </tbody>
@@ -76,6 +76,7 @@ export default {
   },
   methods:{
     setstorage:function(id){
+      console.log("setting roomid local storage...")
       localStorage.setItem("roomid",id)
       
     }
