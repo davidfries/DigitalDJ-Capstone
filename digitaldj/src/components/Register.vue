@@ -31,9 +31,21 @@
                         <b-field label="Password">
                             <b-input
                                 type="password"
+                                id="password"
                                 :value="password"
                                 password-reveal
                                 placeholder="Your password"
+                                required>
+                            </b-input>
+                        </b-field>
+
+                        <b-field label="Confirm Password">
+                            <b-input
+                                type='password'
+                                id="confirmPassword"
+                                :value="confirm"
+                                password-reveal
+                                placeholder="Retype your password"
                                 required>
                             </b-input>
                         </b-field>
@@ -43,7 +55,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary">Sign Up!</button>
+                        <button class="button is-primary" v-on:click="check">Sign Up!</button>
 
                         </div>
                     </footer>
@@ -54,6 +66,7 @@
 </template>
 
 <script>
+import axios from "axios"
 // const Login = {
 //         props: ['email', 'password'],
 //         template: `
@@ -69,16 +82,25 @@ export default {
         return {
             isComponentModalActive: false,
             showModal:true,
-            formProps: {
-                email:'email@email.com',
-                password:'hunter2'
-            }
+            data:[{
+                'userid':1, 'email':"email@email.com", 'password':"pass123"
+            }]
+        }
+    },
+    check: function (){
+        var pass = document.getElementById("password").value;
+        var conf = document.getElementById("confirmPassword").value;
+        if (pass != conf) {
+            alert("Passwords do not match.");
+        }
+        else{
+            axios.post('http://localhost:8080/#/', this.data)
         }
     }
 }
 </script>
 <style>
-            #reg{
-                margin-right:5px;
-            }
-        </style>
+    #reg{
+        margin-right:5px;
+    }
+</style>

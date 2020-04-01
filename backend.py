@@ -53,8 +53,16 @@ class DigitalDJBackend():
 
 
 
-
-
     #SHARING METHODS
         
         
+
+
+
+    #USER METHODS
+    def createuser(self,userid,password,email):
+        query="INSERT INTO users (userid, email, password) VALUES (:userid,crypt(:password, gen_salt('bf')),:email)"
+        try:
+            self.db.query(query,userid=userid,email=email,password=password)
+        except Exception as e:
+            print("create user error {}".format(e))
