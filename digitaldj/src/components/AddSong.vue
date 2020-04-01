@@ -63,7 +63,7 @@ export default {
     },
     methods:{
         addsong:function(){
-            
+            console.log(localStorage.getItem("room_key"))
             console.log(this.song_key)
             axios.post('http://localhost:5000/addsong',{
                 "room_key":`${localStorage.getItem("room_key")}`,

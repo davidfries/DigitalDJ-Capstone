@@ -77,7 +77,8 @@ export default {
   methods:{
     setstorage:function(id){
       console.log("setting roomid local storage...")
-      localStorage.setItem("roomid",id)
+      localStorage.setItem("room_key",id)
+      console.log(localStorage.getItem("room_key"))
       
     }
   },

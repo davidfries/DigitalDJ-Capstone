@@ -44,7 +44,7 @@ class DigitalDJBackend():
         return self.db.query(sql,room_key=room_key).as_dict(ordered=True)
 
     def addsong(self,song_key,room_key,song_title):
-        sql="insert into songs values(:song_key,:room_key,:song_title)"
+        sql="insert into songs(song_key,room_key,song_title) values(:song_key,:room_key,:song_title)"
         try:
             self.db.query(sql,song_key=song_key,room_key=room_key,song_title=song_title)
         except Exception as e:
