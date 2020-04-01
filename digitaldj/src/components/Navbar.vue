@@ -13,12 +13,15 @@
                 <router-link :to="{name:'rooms'}">Rooms</router-link>
                 </b-navbar-item>
             <b-navbar-dropdown label="Info">
-                <b-navbar-item href="#">
-                    About
+            
+                <b-navbar-item>
+                    <router-link :to="{name:'about'}">About</router-link>
                 </b-navbar-item>
-                <b-navbar-item href="#">
-                    Contact
+
+                <b-navbar-item >                  
+                    <router-link :to="{name:'contact'}">Contact</router-link>
                 </b-navbar-item>
+
             </b-navbar-dropdown>
         </template>
 
@@ -38,6 +41,8 @@
 <script>
 import Login from './Login.vue'
 import Register from './Register.vue'
+
+
 export default {
   name: 'Navbar',
   props: {
