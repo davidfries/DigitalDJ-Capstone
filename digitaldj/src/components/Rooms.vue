@@ -16,7 +16,7 @@
           <td>{{row.listeners}}</td>
           <td>{{row.genre}}</td>
           <td>
-            <router-link class="button is-warning" :to="{name:'room',params:{id:row.room_key}}">Join Room</router-link>
+            <router-link v-on:click="setstorage(row.id)" class="button is-warning" :to="{name:'room',params:{id:row.room_key}}">Join Room</router-link>
           </td>
         </tr>
       </tbody>
@@ -73,6 +73,12 @@ export default {
         }
       ]
     };
+  },
+  methods:{
+    setstorage:function(id){
+      localStorage.setItem("roomid",id)
+      
+    }
   },
   mounted() {
     axios.get("http://localhost:5000/rooms").then(resp => {
