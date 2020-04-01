@@ -1,5 +1,6 @@
 <template>
-    <div> <h1> Contact Information </h1>
+    <div> 
+    <h1 id = "contactHeader"> Contact Information </h1>
 
     <p> Please contact us at </p>
     
@@ -14,8 +15,8 @@ export default {
 </script>
 
 
-<style >
-h1{
-    font-size: 4rem;
+<style>
+#contactHeader{
+    font-size: 3rem;
 }
 </style>
