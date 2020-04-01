@@ -26,6 +26,10 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
+@app.route('/',method=='POST')
+def registeruser():
+    db.createuser(request.form['userid'],request.form['password'],request.form['email'])
+        
 # SONG VOTE API METHOD
 @app.route('/songvote',methods=['POST'])
 def songvote():
