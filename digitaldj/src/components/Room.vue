@@ -1,8 +1,8 @@
 <template>
     <div>
-        <a>
+        
             <voting></voting>
-        </a>
+        
     </div>
 </template>
 
