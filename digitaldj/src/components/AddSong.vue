@@ -32,7 +32,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-success">Add!</button>
+                        <button class="button is-success" @click="isComponentModalActive=false">Add!</button>
 
                         </div>
                     </footer>
