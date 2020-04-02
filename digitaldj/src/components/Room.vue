@@ -39,9 +39,11 @@ import Voting from './Voting.vue'
 import AddSong from './AddSong.vue'
 export default {
     name:"Room",
+    props:["id"],
     data(){
       return{
         data:[],
+        
         columns:[{
           "field":"song_title",
           "label":"Song Title"
@@ -55,7 +57,7 @@ export default {
     mounted(){
       // PULL SONGS FROM DB FOR CURRENT ROOM
       var vm =this
-      axios.get('http://localhost:5000/getsongs?room_key='+localStorage.getItem("room_key"))
+      axios.get('http://localhost:5000/getsongs?room_key='+vm.id)
       .then(function(response){
         if(response.data){
           console.log(response.data)

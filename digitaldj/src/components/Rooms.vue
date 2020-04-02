@@ -43,6 +43,7 @@ export default {
     return {
       // pass data as json object
       data: [],
+      room_key:localStorage.getItem("room_key"),
       // name of columns of table, json header name
       columns: [
         {
@@ -78,13 +79,13 @@ export default {
     setstorage:function(id){
       console.log("setting roomid local storage...")
       localStorage.setItem("room_key",id)
-      console.log(localStorage.getItem("room_key"))
+      // console.log(localStorage.getItem("room_key"))
       
     }
   },
   mounted() {
     axios.get("http://localhost:5000/rooms").then(resp => {
-      console.log(resp.data[0].roomname);
+      // console.log(resp.data[0].roomname);
       this.data = resp.data;
     });
   }
