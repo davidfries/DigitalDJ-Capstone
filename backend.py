@@ -43,10 +43,10 @@ class DigitalDJBackend():
         sql="select * from songs where room_key=:room_key"
         return self.db.query(sql,room_key=room_key).as_dict(ordered=True)
 
-    def addsong(self,song_key,room_key,song_title):
+    def addsong(self,room_key,song_title):
         sql="insert into songs(song_key,room_key,song_title) values(:song_key,:room_key,:song_title)"
         try:
-            self.db.query(sql,song_key=song_key,room_key=room_key,song_title=song_title)
+            self.db.query(sql,song_key=self.genid(),room_key=room_key,song_title=song_title)
         except Exception as e:
             print(e)
             print("error in song add")

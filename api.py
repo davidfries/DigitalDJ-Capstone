@@ -12,7 +12,7 @@ def getsongs():
 def addsong():
     if request.method=='POST':
         data=request.get_json()
-        db.addsong(data['song_key'],data['room_key'],data['song_title'])
+        db.addsong(data['room_key'],data['song_title'])
         return "success!"
 @app.route('/returnuser',methods=['GET','POST'])
 def returnuser():
@@ -26,7 +26,7 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
-@app.route('/',method=='POST')
+@app.route('/register',methods=['POST'])
 def registeruser():
     db.createuser(request.form['userid'],request.form['password'],request.form['email'])
         
