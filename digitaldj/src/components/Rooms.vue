@@ -16,7 +16,7 @@
           <td>{{row.listeners}}</td>
           <td>{{row.genre}}</td>
           <td>
-            <router-link v-on:click.native="setstorage(row.room_key)" class="button is-warning" :to="{name:'room',params:{room_key:row.room_key}}">Join Room</router-link>
+            <router-link  class="button is-warning" :to="{name:'room',params:{room_key:row.room_key}}">Join Room</router-link>
           </td>
         </tr>
       </tbody>
