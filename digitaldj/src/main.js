@@ -6,13 +6,20 @@ import Buefy from 'buefy'
 import Rooms from './components/Rooms.vue'
 import MainPage from './components/MainPage.vue'
 import Room from './components/Room.vue'
+import About from './components/About.vue'
+import Contact from './components/Contact.vue'
+
 Vue.use(Buefy)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 const routes = [
   { path: '/rooms', name:"rooms", component: Rooms},
   {path: '/', name:'home', component: MainPage},
-  {path: '/room/:room_key', name:'room', component: Room, props:true}
+  {path: '/room/:room_key', name:'room', component: Room, props:true},
+  
+  { path: '/about', name: "about", component: About, props: true },
+  { path: '/contact', name: "contact", component: Contact, props: true }
+
 ]
 const router = new VueRouter({
   routes // short for `routes: routes`
