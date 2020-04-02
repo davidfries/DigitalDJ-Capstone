@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <h1>
             Song suggestion goes here
         </h1>

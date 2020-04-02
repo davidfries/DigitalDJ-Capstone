@@ -71,6 +71,7 @@ export default {
                 "song_title":this.songtitle
 
             })
+            this.songtitle=""
         }
     }
 }
