@@ -61,12 +61,13 @@ export default {
   
         },
         processvote:function(vote_status){
+            var vm =this;
             if(vote_status===1){
                 // this.count++;
                 this.vote_status="1";
                 this.debouncedvote()
                 // console.log("after deb")
-                var vm =this;
+                
                 axios.get(`http://localhost:5000/getsongvotecount?song_key=${vm.song_key}`)
             .then(function(resp) {
                 vm.count=resp.data[0].count
