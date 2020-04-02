@@ -44,14 +44,22 @@ class DigitalDJBackend():
         return self.db.query(sql,room_key=room_key).as_dict(ordered=True)
 
     def addsong(self,room_key,song_title):
+        song_key=self.genid()
         sql="insert into songs(song_key,room_key,song_title) values(:song_key,:room_key,:song_title)"
         try:
-            self.db.query(sql,song_key=self.genid(),room_key=room_key,song_title=song_title)
+            self.db.query(sql,song_key=song_key,room_key=room_key,song_title=song_title)
         except Exception as e:
             print(e)
             print("error in song add")
 
+        return song_key
+    def songvote(self,song_key,room_key,vote_status):
+        sql="insert into votes(room_key,song_key,vote_status) values(:room_key,:song_key,:vote_status)"
+        self.db.query(sql,song_key=song_key,room_key=room_key,vote_status=vote_status)
 
+    def getsongvotecount(self,song_key):
+        sql="select sum(vote_status) as count from votes where song_key=:song_key"
+        return self.db.query(sql,song_key=song_key).as_dict()
 
     #SHARING METHODS
         
