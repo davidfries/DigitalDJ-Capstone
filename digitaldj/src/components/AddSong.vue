@@ -70,6 +70,8 @@ export default {
                 // "song_key":this.song_key,
                 "song_title":this.songtitle
 
+            }).then(function(response){
+                localStorage.setItem("song_key",response.data.song_key)
             })
             this.songtitle=""
         }

@@ -34,7 +34,7 @@ export default {
         sendvote:function(){
             var vm =this;
             axios.post('http://localhost:5000/songvote',{
-                "songid":localStorage.getItem("songid"),
+                "songid":localStorage.getItem("song_key"),
                 "roomid":localStorage.getItem("roomid")
             }).catch(function(error){
                 console.log(error);
