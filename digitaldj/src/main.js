@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 const routes = [
   { path: '/rooms', name:"rooms", component: Rooms},
   {path: '/', name:'home', component: MainPage},
-  {path: '/room/:id', name:'room', component: Room, props:true}
+  {path: '/room/:room_key', name:'room', component: Room, props:true}
 ]
 const router = new VueRouter({
   routes // short for `routes: routes`
