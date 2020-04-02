@@ -56,6 +56,7 @@ export default {
     },
     mounted(){
       // PULL SONGS FROM DB FOR CURRENT ROOM
+      localStorage.setItem("room_key",this.room_key)
       var vm =this
       axios.get('http://localhost:5000/getsongs?room_key='+vm.room_key)
       .then(function(response){
