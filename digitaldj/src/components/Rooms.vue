@@ -15,7 +15,7 @@
                 <td>{{row.room_name}}</td>
                 <td>{{row.listeners}}</td>
                 <td>{{row.genre}}</td>
-                <td><router-link class="button is-warning" :to="{name:'room',params:{id:row.id}}">Join Room</router-link></td>
+                <td><router-link class="button is-warning" :to="{name:'chat',params:{id:row.id}}">Join Room</router-link></td>
             </tr>
 
         </tbody>
