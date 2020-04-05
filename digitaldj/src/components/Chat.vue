@@ -1,17 +1,19 @@
 <template>
 
-<div id>
-    <b-container class = "chatbox">
-        <b-row>
-            <b-col sml="4">space</b-col>
-            <b-col sml="8">text area</b-col>
-        </b-row>
+<div class = "container">
+     
 
-        </b-container>
+        <span>Multiline message is:</span>
+<p style="white-space: pre-line;">{{ message }}</p>
+<br>
+<textarea v-model="message" placeholder="add multiple lines"></textarea>
 
 </div>
     
 </template>
+
+
+
 
 <script>
 export default {
