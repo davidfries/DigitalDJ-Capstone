@@ -38,6 +38,9 @@ const axios = require("axios");
 
 import Voting from './Voting.vue'
 import AddSong from './AddSong.vue'
+import socketio from 'socket.io-client';
+const socket = socketio('http://localhost:4113');
+
 export default {
     name:"Room",
     props:["room_key"],
@@ -61,6 +64,10 @@ export default {
       }
     },
     mounted(){
+      socket.on("new_connection",function(){
+  this.isConnected=true;
+})
+      socket.emit('room_connection',{"room_key":this.room_key})
       // PULL SONGS FROM DB FOR CURRENT ROOM
       localStorage.setItem("room_key",this.room_key)
       var vm =this
