@@ -13,7 +13,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="">
+            <form action="" @submit="check">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Register</p>
@@ -43,7 +43,7 @@
                             <b-input
                                 type='password'
                                 id="confirmPassword"
-                                :value="confirm"
+                                :value="confirmPassword"
                                 password-reveal
                                 placeholder="Retype your password"
                                 required>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import axios from "axios"
+const axios = require("axios");
 // const Login = {
 //         props: ['email', 'password'],
 //         template: `
@@ -82,19 +82,19 @@ export default {
         return {
             isComponentModalActive: false,
             showModal:true,
-            data:[{
-                'client_key':1, 'email':"email@email.com", 'password':"pass123"
-            }]
+            data:[]
         }
     },
-    check: function (){
-        var pass = document.getElementById("password").value;
-        var conf = document.getElementById("confirmPassword").value;
-        if (pass != conf) {
-            alert("Passwords do not match.");
-        }
-        else{
-            axios.post('http://localhost:8080/#/', this.data)
+    methods:{
+        check:function(){
+            var pass = document.getElementById("password").value;
+            var conf = document.getElementById("confirmPassword").value;
+            if (pass != conf) {
+                console.log("Passwords do not match.");
+            }
+            else{
+                axios.post('http://localhost:8080/#/', {"email":this.email, "password":this.password})
+            }
         }
     }
 }
