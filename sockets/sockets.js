@@ -9,9 +9,14 @@ io.on('connection', function(socket){
   })
     console.log('a user connected '+socket.id);
     socket.emit('new_connection',"connected!");
-  });
 
+    socket.on('disconnect',function(){
+      console.log("user disconnected" + socket.id)
+    })
 
+  }); //end of on connect
+
+  
 
   http.listen(port=4113, function(){
     console.log('listening on *:'+port);

@@ -58,14 +58,11 @@ export default {
         }]
       }
     },
-    sockets:{
-      connect(){
-        this.isConnected=true;
-      }
-    },
+    
     mounted(){
-      socket.on("new_connection",function(){
+      socket.on("new_connection",function(data){
   this.isConnected=true;
+  console.log(data)
 })
       socket.emit('room_connection',{"room_key":this.room_key})
       // PULL SONGS FROM DB FOR CURRENT ROOM
