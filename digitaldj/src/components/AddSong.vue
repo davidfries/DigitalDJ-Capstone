@@ -32,7 +32,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-success">Add!</button>
+                        <button class="button is-success" @click="isComponentModalActive=false">Add!</button>
 
                         </div>
                     </footer>
@@ -50,11 +50,11 @@ export default {
         return{
             isComponentModalActive: false,
             showModal:true,
-            songtitle: "",
-            song_key:""
+            songtitle: ""
+            // song_key:""
         }
     },
-    mounted(){
+    created(){
         let vm=this
         axios.get('http://localhost:5000/newid').then(function(response){
             console.log("new song key "+response.data.id)
@@ -63,14 +63,17 @@ export default {
     },
     methods:{
         addsong:function(){
-            
-            console.log(this.song_key)
+            console.log(localStorage.getItem("room_key"))
+            // console.log(this.song_key)
             axios.post('http://localhost:5000/addsong',{
                 "room_key":`${localStorage.getItem("room_key")}`,
-                "song_key":this.song_key,
+                // "song_key":this.song_key,
                 "song_title":this.songtitle
 
+            }).then(function(response){
+                localStorage.setItem("song_key",response.data.song_key)
             })
+            this.songtitle=""
         }
     }
 }

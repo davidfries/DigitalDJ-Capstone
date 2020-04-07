@@ -16,7 +16,7 @@
           <td>{{row.listeners}}</td>
           <td>{{row.genre}}</td>
           <td>
-            <router-link v-on:click.native="setstorage(row.room_key)" class="button is-warning" :to="{name:'room',params:{id:row.room_key}}">Join Room</router-link>
+            <router-link  class="button is-warning" :to="{name:'room',params:{room_key:row.room_key}}">Join Room</router-link>
           </td>
         </tr>
       </tbody>
@@ -43,6 +43,7 @@ export default {
     return {
       // pass data as json object
       data: [],
+      room_key:localStorage.getItem("room_key"),
       // name of columns of table, json header name
       columns: [
         {
@@ -77,13 +78,14 @@ export default {
   methods:{
     setstorage:function(id){
       console.log("setting roomid local storage...")
-      localStorage.setItem("roomid",id)
+      localStorage.setItem("room_key",id)
+      // console.log(localStorage.getItem("room_key"))
       
     }
   },
   mounted() {
     axios.get("http://localhost:5000/rooms").then(resp => {
-      console.log(resp.data[0].roomname);
+      // console.log(resp.data[0].roomname);
       this.data = resp.data;
     });
   }

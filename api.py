@@ -12,18 +12,8 @@ def getsongs():
 def addsong():
     if request.method=='POST':
         data=request.get_json()
-        db.addsong(data['song_key'],data['room_key'],data['song_title'])
-        return "success!"
-@app.route('/rooms',methods=['GET'])
-def getallrooms():
-    if request.method=='GET':
-        return jsonify(db.getrooms())
-
-# USER API METHODS
-@app.route('/',methods=['POST'])
-def registeruser():
-    db.createuser(request.request.form['email'],request.form['password'])
-
+        song_key=db.addsong(data['room_key'],data['song_title'])
+        return jsonify({"song_key":song_key})
 @app.route('/returnuser',methods=['GET','POST'])
 def returnuser():
     if request.method=='POST':
@@ -31,15 +21,32 @@ def returnuser():
         return request.get_json()['username']  
         # else:
         #     return "empty username field" 
-          
+@app.route('/rooms',methods=['GET'])
+def getallrooms():
+    if request.method=='GET':
+        return jsonify(db.getrooms())
+
+@app.route('/register',methods=['POST'])
+def registeruser():
+    db.createuser(request.form['userid'],request.form['password'],request.form['email'])
+        
 # SONG VOTE API METHOD
+@app.route('/getsongvotecount',methods=['GET'])
+def getsongvotecount():
+    if request.method =='GET':
+        count=db.getsongvotecount(request.args.get("song_key"))
+        return jsonify(count)
+
 @app.route('/songvote',methods=['POST'])
 def songvote():
     if request.method=='POST':
         data=request.get_json()
         print(data)
-        return "voted!"
-
+        try:
+            db.songvote(data['song_key'],data['room_key'],data['vote_status'])
+            return "success"
+        except Exception as e:
+            print(e)
 @app.route('/addroom',methods=['POST'])
 def addroom():
     if request.method=='POST':
