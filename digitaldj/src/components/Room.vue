@@ -1,5 +1,6 @@
 <template>
     <div class="container has-text-centered">
+            <h3 v-if="isConnected">Connected to socket server!</h3>
             <AddSong></AddSong>
 
             <table class="table">
@@ -43,7 +44,7 @@ export default {
     data(){
       return{
         data:[],
-        
+        isConnected:false,
         columns:[{
           "field":"song_title",
           "label":"Song Title"
@@ -52,6 +53,11 @@ export default {
             "field":"song_key",
             "label":"Vote!"
         }]
+      }
+    },
+    sockets:{
+      connect(){
+        this.isConnected=true;
       }
     },
     mounted(){

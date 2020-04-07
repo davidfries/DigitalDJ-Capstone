@@ -2,12 +2,22 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Buefy from 'buefy'
+import socketio from 'socket.io-client';
+import VueSocketIO from 'vue-socket.io';
 // import 'buefy/dist/buefy.css'
 import Rooms from './components/Rooms.vue'
 import MainPage from './components/MainPage.vue'
 import Room from './components/Room.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
+try{
+const SocketInstance = socketio('http://localhost:4113');
+Vue.use(VueSocketIO, SocketInstance)
+}
+catch{
+  console.log("Can't connect to socket server")
+}
+
 
 Vue.use(Buefy)
 Vue.use(VueRouter)
