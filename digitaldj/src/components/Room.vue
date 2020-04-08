@@ -39,7 +39,7 @@ const axios = require("axios");
 import Voting from './Voting.vue'
 import AddSong from './AddSong.vue'
 import socketio from 'socket.io-client';
-const socket = socketio('http://localhost:4113');
+const socket = socketio('http://localhost:5000');
 
 export default {
     name:"Room",

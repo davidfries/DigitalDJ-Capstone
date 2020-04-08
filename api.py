@@ -1,10 +1,34 @@
-from flask import Flask,jsonify,request,redirect
+from flask import Flask,jsonify,request,redirect,session,render_template
 from flask_cors import CORS
+from flask_socketio import SocketIO, emit, send,join_room, leave_room
+import json
 from backend import DigitalDJBackend
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}).init_app(app)
+socketio = SocketIO(app,cors_allowed_origins='*')
 db=DigitalDJBackend()
 # app.config['CORS_HEADERS'] = 'Content-Type'
+
+# SOCKET METHODS GO HERE
+@app.route('/socket.io',methods=['GET'])
+def default():
+    render_template("index.html")
+@socketio.on('connect')
+def on_connect():
+    send("Hi!")
+
+@socketio.on('room_connection')
+def room_connection(data):
+    print(str(data))
+
+
+
+
+
+
+
+
+
 @app.route('/getsongs',methods=['GET'])
 def getsongs():
     return jsonify(db.getsongs(request.args.get("room_key")))
@@ -64,6 +88,6 @@ def getid():
         data={"id":db.genid()}
         return jsonify(data)
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app,host='localhost',port=5000,debug=True)
 
    
