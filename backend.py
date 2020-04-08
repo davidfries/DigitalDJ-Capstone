@@ -68,7 +68,7 @@ class DigitalDJBackend():
 
 
     #USER METHODS
-    def createuser(self,password,email):
+    def createuser(self,email,password):
         # get last client key in db and increment
         client_key = self.db.query(
             "SELECT client_key FROM users ORDER BY client_key DESC LIMIT 1;"

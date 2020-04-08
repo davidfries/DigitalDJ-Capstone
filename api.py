@@ -28,7 +28,15 @@ def getallrooms():
 
 @app.route('/register',methods=['POST'])
 def registeruser():
-    db.createuser(request.form['userid'],request.form['password'],request.form['email'])
+    if request.method=='POST':
+        data=request.get_json()
+        try:
+            db.createuser(data['userid'],data['password'],data['email'])
+            return jsonify({"msg":"successful user registration"})
+        except Exception as e:
+            print(e)
+            print("error in user registration")
+            return jsonify({"msg":"error in user registration {}".format(e)})
         
 # SONG VOTE API METHOD
 @app.route('/getsongvotecount',methods=['GET'])
