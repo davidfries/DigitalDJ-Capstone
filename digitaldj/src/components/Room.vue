@@ -53,7 +53,7 @@ export default {
  destroyed(){
    console.log('destroyed room component')
    const socket = socketio("http://localhost:5000");
-   var data ={"room_key":this.room,"client_key":this.client_key}
+   var data ={"room_key":this.room_key,"client_key":this.client_key}
    socket.emit('leave_music_room',data)
  },
   mounted() {
