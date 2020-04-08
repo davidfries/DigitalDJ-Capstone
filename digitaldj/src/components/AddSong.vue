@@ -57,7 +57,7 @@ export default {
     created(){
         let vm=this
         axios.get('http://localhost:5000/newid').then(function(response){
-            console.log("new song key "+response.data.id)
+            // console.log("new song key "+response.data.id)
             vm.song_key=response.data.id
         })
     },

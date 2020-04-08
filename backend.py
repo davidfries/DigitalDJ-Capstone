@@ -76,9 +76,10 @@ class DigitalDJBackend():
             print("create user error {}".format(e))
 
     def addclienttoroom(self,clientid,room_key):
+        # clientid=self.genid()
         query="insert into rooms_activeusers(clientid,room_key) values(:clientid,:room_key)"
         self.db.query(query,clientid=clientid,room_key=room_key)
 
     def getclientsinroom(self,room_key):
         query="select count(*) from rooms_activeusers where room_key=:room_key"
-        self.db.query(query,room_key=room_key)
+        return self.db.query(query,room_key=room_key).first().export('json')
