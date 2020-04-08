@@ -23,13 +23,14 @@ clients=[]
 @socketio.on('room_connection')
 def room_connection(data):
     # print(str(data))
-    # print(str(json.loads(data)['room_key']))
+    print(str(json.loads(data)))
     # clients.append(Client(json.loads(data)['room_key']))
     room_key=str(json.loads(data)['room_key'])
-    # client_key=str(json.loads(data)['client_key'])
+    client_key=str(json.loads(data)['client_key'])
     join_room(room_key)
     send("joined room!")
     send("all should see",room=room_key,broadcast=True)
+    db.addclienttoroom(client_key,room_key)
 @socketio.on('leave_music_room')
 def leave_music_room(data):
     # print(str(data))
