@@ -20,7 +20,16 @@
 
         </tbody>
     </table>
+
+    <div class = "newButton">
+        <b-button class="button1"><router-link :to="{name:'newroom'}">Create a New Room</router-link></b-button>
+    </div>
+        
+    
+
+
 </div>
+
 
 
     <!-- <b-table :striped="true" :data="data" :columns="columns">
@@ -78,3 +87,16 @@ export default {
     }
 }
 </script>
+
+
+<style>
+.newButton{
+    position: absolute;
+    right: 30px;
+    top: 50px;       
+}
+
+.button1{
+    font-size: 3em;  
+}
+</style>

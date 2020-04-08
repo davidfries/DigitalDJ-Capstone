@@ -9,6 +9,7 @@ import Room from './components/Room.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
 import Chat from './components/Chat.vue'
+import NewRoom from './components/NewRoom.vue'
 
 Vue.use(Buefy)
 Vue.use(VueRouter)
@@ -19,7 +20,8 @@ const routes = [
   {path: '/room/:id', name:'room', component: Room, props:true},
   { path: '/about', name: "about", component: About, props: true },
   { path: '/contact', name: "contact", component: Contact, props: true },
-  { path: '/chat', name: "chat", component: Chat, props: true }
+  { path: '/chat', name: "chat", component: Chat, props: true },
+  { path: '/newroom', name: "newroom", component: NewRoom, props: true }
 
 ]
 const router = new VueRouter({
