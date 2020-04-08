@@ -50,7 +50,12 @@ export default {
       ]
     };
   },
-
+ destroyed(){
+   console.log('destroyed room component')
+   const socket = socketio("http://localhost:5000");
+   var data ={"room_key":this.room,"client_key":this.client_key}
+   socket.emit('leave_music_room',data)
+ },
   mounted() {
         let vm=this
         // var client_key=''
@@ -62,7 +67,7 @@ const socket = socketio("http://localhost:5000");
   socket.on("connect",()=>{
     var data = { "room_key": this.room_key, "client_key": socket.id};
     socket.emit("room_connection", data);
-    console.log(socket.id)
+    vm.client_key=socket.id
     // vm.client_key=socket.id
   })
     socket.on("new_connection", function(data) {

@@ -83,3 +83,6 @@ class DigitalDJBackend():
     def getclientsinroom(self,room_key):
         query="select count(*) from rooms_activeusers where room_key=:room_key"
         return self.db.query(query,room_key=room_key).first().export('json')
+    def leaveroom(self,client_key):
+        query='delete from rooms_activeusers where clientid=:client_key'
+        self.db.query(query,client_key=client_key)

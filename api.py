@@ -11,14 +11,18 @@ db=DigitalDJBackend()
 
 # SOCKET METHODS GO HERE
 class Client():
-    def __init__(self,room_key):
+    def __init__(self,room_key,client_key):
         self.room_key=room_key
+        self.client_key=client_key
 @app.route('/socket.io',methods=['GET'])
 def default():
-    render_template("index.html")
+    return render_template("index.html")
 @socketio.on('connect')
 def on_connect():
     send("Hi!")
+@socketio.on('disconnect')
+def on_disconnect():
+    print("Disconnected a client")
 clients=[]
 @socketio.on('room_connection')
 def room_connection(data):
@@ -27,6 +31,8 @@ def room_connection(data):
     # clients.append(Client(json.loads(data)['room_key']))
     room_key=data['room_key']
     client_key=data['client_key']
+    # clientdata={"room_key":room_key,"client_key":client_key}
+    # clients.append(clientdata)
     join_room(room_key)
     send("joined room!",room=room_key)
     # send("all should see",room=room_key,broadcast=True)
@@ -39,9 +45,11 @@ def leave_music_room(data):
     # print(str(data))
     # print(str(json.loads(data)['room_key']))
     # clients.append(Client(json.loads(data)['room_key']))
-    room_key=str(json.loads(data)['room_key'])
-    client_key=str(json.loads(data)['client_key'])
-    leave_room(room_key)
+    db.leaveroom(data['client_key'])
+    print("leaving room!")
+    # room_key=str(json.loads(data)['room_key'])
+    # client_key=str(json.loads(data)['client_key'])
+    # leave_room(room_key)
 
 
 
