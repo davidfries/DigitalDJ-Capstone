@@ -92,11 +92,11 @@ export default {
 <style>
 .newButton{
     position: absolute;
-    right: 30px;
+    right: 50px;
     top: 50px;       
 }
 
 .button1{
-    font-size: 3em;  
+    font-size: 2em;  
 }
 </style>

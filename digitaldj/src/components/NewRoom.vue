@@ -1,7 +1,7 @@
 <template>
 <div>
 
-<h1> Create Your Own Room</h1>
+<h1>Create Your Own Room</h1>
 
 
         <div class="block">
@@ -21,8 +21,8 @@
 
 
         <b-field horizontal label="Number of Listeners">
-        <b-numberinput min="0" max="20" controls-position="compact"
-                controls-rounded placeholder="Max per room is 20 people"></b-numberinput>
+        <b-numberinput :editable="false" min="0" max="15" controls-position="compact"
+                controls-rounded></b-numberinput>
         </b-field>
 
         <b-field horizontal label="Music Genre">
@@ -40,7 +40,7 @@
             </b-select>
         </b-field>
 
-        <b-button type="is-primary">Create Room</b-button>
+        <b-button type="is-primary" class="createButton">Create Room</b-button>
 
 </div>
     
@@ -63,6 +63,28 @@ export default {
 <style>
 h1{
     font-size: 3em;
+}
+
+.block{
+    font-size:20px;
+}
+
+.label{
+    color: white;
+    font-size: 2em;
+}
+
+.createButton{
+    font-size: 2em;
+}
+
+.b-radio.radio input[type=radio]:checked + .check {
+    border-color: orange;
+    background-color: orange;
+}
+
+.field-label .label {
+    font-size: 18px;
 }
 
 </style>
