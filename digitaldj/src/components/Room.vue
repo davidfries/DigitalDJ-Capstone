@@ -64,7 +64,10 @@ export default {
   this.isConnected=true;
   console.log(data)
 })
-      socket.emit('room_connection',{"room_key":this.room_key})
+    socket.on("message",function(message){
+      console.log(message)
+    })
+      socket.emit('room_connection',JSON.stringify({"room_key":this.room_key,"client_key":socket.id}))
       // PULL SONGS FROM DB FOR CURRENT ROOM
       localStorage.setItem("room_key",this.room_key)
       var vm =this
