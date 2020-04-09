@@ -31,7 +31,7 @@ def registeruser():
     if request.method=='POST':
         data=request.get_json()
         try:
-            db.createuser(data['userid'],data['password'],data['email'])
+            db.createuser(data['email'],data['password'])
             return jsonify({"msg":"successful user registration"})
         except Exception as e:
             print(e)

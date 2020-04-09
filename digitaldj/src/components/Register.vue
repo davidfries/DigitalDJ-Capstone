@@ -32,7 +32,7 @@
                         <b-field label="Password">
                             <b-input
                                 v-model="password"
-                                type="text"
+                                type="password"
                                 id="password"
                                 :value="password"
                                 password-reveal
@@ -44,7 +44,7 @@
                         <b-field label="Confirm Password">
                             <b-input
                                 v-model="confirmPassword"
-                                type="text"
+                                type="password"
                                 id="confirmPassword"
                                 :value="confirmPassword"
                                 password-reveal
