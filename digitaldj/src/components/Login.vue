@@ -11,7 +11,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="">
+            <form action="" @submit="login">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Login</p>
@@ -41,7 +41,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary">Login</button>
+                        <button class="button is-primary" @click="isComponentModalActive=false">Login</button>
 
                         </div>
                     </footer>
@@ -52,25 +52,20 @@
 </template>
 
 <script>
-// const Login = {
-//         props: ['email', 'password'],
-//         template: `
-            
-//         `
-//     }
+const axios = require("axios");
 export default {
     name:"Login",
-    // components:{
-    //     Login
-    // },
     data(){
         return {
             isComponentModalActive: false,
             showModal:true,
-            formProps: {
-                email:'email@email.com',
-                password:'hunter2'
-            }
+            email:"",
+            password:""
+        }
+    },
+    methods:{
+        login:function(){
+            axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
         }
     }
 }

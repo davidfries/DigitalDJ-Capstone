@@ -11,8 +11,13 @@ class DigitalDJBackend():
     
     #AUTHENTICATION METHODS
 
-    def authuser(self, username, password, token):
-        pass
+    #def authuser(self, username, password, token):
+    def authuser(self, email, password):
+        query="SELECT * FROM users WHERE email=:email AND password=crypt(:password, password)"
+        try:
+            return self.db.query(query,email=email,password=password)
+        except Exception as e:
+            print("User authentication error {}".format(e))
 
     def changepassword(self,password,token):
         pass

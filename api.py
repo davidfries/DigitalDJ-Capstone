@@ -92,6 +92,19 @@ def registeruser():
             print(e)
             print("error in user registration")
             return jsonify({"msg":"error in user registration {}".format(e)})
+
+@app.route('/login',methods=['POST'])
+def loginauth():
+    if request.method=='POST':
+        data=request.get_json()
+        try:
+            db.authuser(data['email'],data['password'])
+            print(db.authuser(data['email'],data['password']))
+            return jsonify({"msg":"successful user authentication"})
+        except Exception as e:
+            print(e)
+            print("error in user authentication")
+            return jsonify({"msg":"error in user authentication {}".format(e)})
         
 # SONG VOTE API METHOD
 @app.route('/getsongvotecount',methods=['GET'])
