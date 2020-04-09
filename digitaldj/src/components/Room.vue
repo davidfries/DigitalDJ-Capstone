@@ -81,6 +81,9 @@ const socket = socketio("http://localhost:5000");
       JSON.parse(data).forEach(element => {
         vm.counter=element.count
       });
+      socket.on("client_songs_update",(data)=>{
+        vm.data=data
+      })
       
     });
     // console.log(socket.id)

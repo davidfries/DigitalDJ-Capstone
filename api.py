@@ -53,7 +53,10 @@ def leave_music_room(data):
     # client_key=str(json.loads(data)['client_key'])
     # leave_room(room_key)
 
-
+@socketio.on('update_songs')
+def update_songs(data):
+    songs=db.getsongs(data['room_key'])
+    emit("client_songs_update",songs,broadcast=True,room=data['room_key'])
 
 
 
