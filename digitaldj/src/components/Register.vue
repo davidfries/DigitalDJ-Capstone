@@ -13,7 +13,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="">
+            <form action="" @submit="register">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Register</p>
@@ -21,6 +21,7 @@
                     <section class="modal-card-body">
                         <b-field label="Email">
                             <b-input
+                                v-model="email"
                                 type="email"
                                 :value="email"
                                 placeholder="Your email"
@@ -30,6 +31,7 @@
 
                         <b-field label="Password">
                             <b-input
+                                v-model="password"
                                 type="password"
                                 id="password"
                                 :value="password"
@@ -41,9 +43,10 @@
 
                         <b-field label="Confirm Password">
                             <b-input
-                                type='password'
+                                v-model="confirmPassword"
+                                type="password"
                                 id="confirmPassword"
-                                :value="confirm"
+                                :value="confirmPassword"
                                 password-reveal
                                 placeholder="Retype your password"
                                 required>
@@ -55,7 +58,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary" v-on:click="check">Sign Up!</button>
+                        <button class="button is-primary" @click="isComponentModalActive=false">Sign Up!</button>
 
                         </div>
                     </footer>
@@ -66,35 +69,28 @@
 </template>
 
 <script>
-import axios from "axios"
-// const Login = {
-//         props: ['email', 'password'],
-//         template: `
-            
-//         `
-//     }
+const axios = require("axios");
 export default {
     name:"Register",
-    // components:{
-    //     Login
-    // },
     data(){
         return {
             isComponentModalActive: false,
             showModal:true,
-            data:[{
-                'userid':1, 'email':"email@email.com", 'password':"pass123"
-            }]
+            email: "",
+            password: "",
+            confirmPassword: ""
         }
     },
-    check: function (){
-        var pass = document.getElementById("password").value;
-        var conf = document.getElementById("confirmPassword").value;
-        if (pass != conf) {
-            alert("Passwords do not match.");
-        }
-        else{
-            axios.post('http://localhost:8080/#/', this.data)
+    methods:{
+        register:function(){
+            var pass = document.getElementById("password").value;
+            var conf = document.getElementById("confirmPassword").value;
+            if (pass != conf) {
+                console.log("Passwords do not match.");
+            }
+            else{
+                axios.post('http://localhost:5000/register', {"email":this.email, "password":this.password})
+            }
         }
     }
 }
