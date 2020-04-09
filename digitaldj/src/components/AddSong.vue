@@ -43,7 +43,9 @@
 </template>
 
 <script>
+import socketio from "socket.io-client";
 const axios = require("axios");
+
 export default {
     name:"AddSong",
     data(){
@@ -57,12 +59,13 @@ export default {
     created(){
         let vm=this
         axios.get('http://localhost:5000/newid').then(function(response){
-            console.log("new song key "+response.data.id)
+            // console.log("new song key "+response.data.id)
             vm.song_key=response.data.id
         })
     },
     methods:{
         addsong:function(){
+            const socket = socketio("http://localhost:5000");
             console.log(localStorage.getItem("room_key"))
             // console.log(this.song_key)
             axios.post('http://localhost:5000/addsong',{
@@ -74,6 +77,8 @@ export default {
                 localStorage.setItem("song_key",response.data.song_key)
             })
             this.songtitle=""
+            var data={"room_key":`${localStorage.getItem("room_key")}`}
+            socket.emit("update_songs",data)
         }
     }
 }
