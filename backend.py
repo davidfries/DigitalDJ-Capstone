@@ -69,11 +69,8 @@ class DigitalDJBackend():
 
     #USER METHODS
     def createuser(self,email,password):
-        # get last client key in db and increment
-        client_key = int(self.db.query(
-            "SELECT client_key FROM users ORDER BY client_key DESC LIMIT 1;"
-            ).as_dict()[0].get("client_key")) + 1
-        query="INSERT INTO users (client_key, email, password) VALUES (:client_key,:email,:password)"
+        client_key = self.genid()
+        query="INSERT INTO users (client_key, email, password) VALUES (:client_key,:email,crypt(:password, gen_salt('bf')))"
         try:
             self.db.query(query,client_key=client_key,email=email,password=password)
         except Exception as e:
