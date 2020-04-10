@@ -38,13 +38,13 @@ export default {
     methods:{
         sendvote:function(){
             var vm =this;
-            axios.post('http://34.199.8.152:5000/songvote',{
+            axios.post('http://digitaldj.live:5000/songvote',{
                 "song_key":vm.song_key,
                 "room_key":localStorage.getItem("room_key"),
                 "vote_status":vm.vote_status
             })
             .then(function(){
-                axios.get(`http://34.199.8.152:5000/getsongvotecount?song_key=${vm.song_key}`)
+                axios.get(`http://digitaldj.live:5000/getsongvotecount?song_key=${vm.song_key}`)
             .then(function(resp) {
                 vm.count=resp.data[0].count
             })
@@ -68,7 +68,7 @@ export default {
                 this.debouncedvote()
                 // console.log("after deb")
                 
-                axios.get(`http://34.199.8.152:5000/getsongvotecount?song_key=${vm.song_key}`)
+                axios.get(`http://digitaldj.live:5000/getsongvotecount?song_key=${vm.song_key}`)
             .then(function(resp) {
                 vm.count=resp.data[0].count
             })
@@ -77,7 +77,7 @@ export default {
                 // this.count--;
                 this.vote_status="-1";
                  this.debouncedvote()
-                axios.get(`http://34.199.8.152:5000/getsongvotecount?song_key=${vm.song_key}`)
+                axios.get(`http://digitaldj.live:5000/getsongvotecount?song_key=${vm.song_key}`)
             .then(function(resp) {
                 vm.count=resp.data[0].count
             })
@@ -86,9 +86,9 @@ export default {
         }
     },
     mounted(){
-        // console.log(`http://34.199.8.152:5000/getsongvotecount?song_key=${this.song_key}`)
+        // console.log(`http://digitaldj.live:5000/getsongvotecount?song_key=${this.song_key}`)
         // console.log("Roomid from local storage"+localStorage.getItem("room_key"))
-        axios.get(`http://34.199.8.152:5000/getsongvotecount?song_key=${this.song_key}`).then(resp => {
+        axios.get(`http://digitaldj.live:5000/getsongvotecount?song_key=${this.song_key}`).then(resp => {
     //   console.log(resp.data[0].roomname);
         
       this.count = resp.data[0].count;
