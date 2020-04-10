@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueSession from 'vue-session'
 import Buefy from 'buefy'
+import VueSession from 'vue-session'
 // import socketio from 'socket.io-client';
 // import VueSocketIO from 'vue-socket.io-extended';
 // import 'buefy/dist/buefy.css'

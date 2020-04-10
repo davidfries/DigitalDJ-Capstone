@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request,redirect,session,render_template
+from flask import Flask,jsonify,request,redirect,session,render_template, Response
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send,join_room, leave_room
 import json
@@ -81,8 +81,8 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
-@app.route('/register',methods=['POST'])
-def registeruser():
+@app.route('/',methods=['POST'])
+def userauth():
     if request.method=='POST':
         data=request.get_json()
         try:

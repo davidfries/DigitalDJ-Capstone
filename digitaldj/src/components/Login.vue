@@ -11,7 +11,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="" @submit="login">
+            <form action="" @submit="login()">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Login</p>
@@ -61,6 +61,7 @@ export default {
         return {
             isComponentModalActive: false,
             showModal:true,
+            type: "login",
             email:"",
             password:""
         }
