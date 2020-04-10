@@ -46,6 +46,7 @@ def leave_music_room(data):
     # print(str(json.loads(data)['room_key']))
     # clients.append(Client(json.loads(data)['room_key']))
     db.leaveroom(data['client_key'])
+    leave_room(data['room_key'])
     print("leaving room!")
     counter=db.getclientsinroom(data['room_key'])
     emit("active_clients_counter",counter,broadcast=True,room=data['room_key'])
