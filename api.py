@@ -99,7 +99,6 @@ def loginauth():
         data=request.get_json()
         try:
             db.authuser(data['email'],data['password'])
-            print(db.authuser(data['email'],data['password']))
             return jsonify({"msg":"successful user authentication"})
         except Exception as e:
             print(e)

@@ -19,6 +19,7 @@
                     <section class="modal-card-body">
                         <b-field label="Email">
                             <b-input
+                                v-model="email"
                                 type="email"
                                 :value="email"
                                 placeholder="Your email"
@@ -28,6 +29,7 @@
 
                         <b-field label="Password">
                             <b-input
+                                v-model="password"
                                 type="password"
                                 :value="password"
                                 password-reveal
@@ -41,7 +43,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary" @click="isComponentModalActive=false">Login</button>
+                        <button class="button is-primary" @click="isComponentModalActive=false;persist();">Login</button>
 
                         </div>
                     </footer>
@@ -66,6 +68,14 @@ export default {
     methods:{
         login:function(){
             axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+        },
+        persist:function(){
+            localStorage.email = this.email
+        }
+    },
+    mounted(){
+        if (localStorage.email) {
+            this.email = localStorage.email
         }
     }
 }

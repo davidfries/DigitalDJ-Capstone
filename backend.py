@@ -13,7 +13,7 @@ class DigitalDJBackend():
 
     #def authuser(self, username, password, token):
     def authuser(self, email, password):
-        query="SELECT * FROM users WHERE email=:email AND password=crypt(:password, password)"
+        query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
         try:
             return self.db.query(query,email=email,password=password)
         except Exception as e:
