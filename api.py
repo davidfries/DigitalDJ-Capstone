@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request,redirect,session,render_template
+from flask import Flask,jsonify,request,redirect,session,render_template, Response
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send,join_room, leave_room
 import json
@@ -82,8 +82,8 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
-@app.route('/register',methods=['POST'])
-def registeruser():
+@app.route('/',methods=['POST'])
+def userauth():
     if request.method=='POST':
         data=request.get_json()
         try:
@@ -93,6 +93,20 @@ def registeruser():
             print(e)
             print("error in user registration")
             return jsonify({"msg":"error in user registration {}".format(e)})
+
+@app.route('/login',methods=['POST'])
+def loginauth():
+    if request.method=='POST':
+        data=request.get_json()
+        try:
+            db.authuser(data['email'],data['password'])
+            return "success"
+            #print("Successful user authentication")
+            #return jsonify({"msg":"successful user authentication {}"})
+        except Exception as e:
+            print(e)
+            print("Error in user authentication")
+            return jsonify({"msg":"error in user authentication {}".format(e)})
         
 # SONG VOTE API METHOD
 @app.route('/getsongvotecount',methods=['GET'])

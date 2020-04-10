@@ -11,7 +11,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="">
+            <form action="" @submit.prevent="login">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Login</p>
@@ -19,6 +19,7 @@
                     <section class="modal-card-body">
                         <b-field label="Email">
                             <b-input
+                                v-model="email"
                                 type="email"
                                 :value="email"
                                 placeholder="Your email"
@@ -28,6 +29,7 @@
 
                         <b-field label="Password">
                             <b-input
+                                v-model="password"
                                 type="password"
                                 :value="password"
                                 password-reveal
@@ -41,7 +43,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary">Login</button>
+                        <button class="button is-primary" @click="isComponentModalActive=false">Login</button>
 
                         </div>
                     </footer>
@@ -52,25 +54,39 @@
 </template>
 
 <script>
-// const Login = {
-//         props: ['email', 'password'],
-//         template: `
-            
-//         `
-//     }
+const axios = require("axios");
 export default {
     name:"Login",
-    // components:{
-    //     Login
-    // },
     data(){
         return {
             isComponentModalActive: false,
             showModal:true,
-            formProps: {
-                email:'email@email.com',
-                password:'hunter2'
-            }
+            email:"",
+            password:""
+        }
+    },
+    methods:{
+        login:function(){
+            let vm = this
+            axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+            .then(function(response){
+                if (response.status === 200){
+                    vm.$session.start()
+                    console.log("session started")
+                    vm.$router.go()
+                }
+            })
+            .then(function(){
+                vm.$router.push('/rooms')
+            })
+        },
+        persist:function(){
+            localStorage.email = this.email
+        }
+    },
+    mounted(){
+        if (localStorage.email) {
+            this.email = localStorage.email
         }
     }
 }

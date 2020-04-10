@@ -58,7 +58,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary" @click="isComponentModalActive=false">Sign Up!</button>
+                        <button class="button is-primary" @click="isComponentModalActive=false;persist()">Sign Up!</button>
 
                         </div>
                     </footer>
@@ -89,8 +89,16 @@ export default {
                 console.log("Passwords do not match.");
             }
             else{
-                axios.post('http://localhost:5000/register', {"email":this.email, "password":this.password})
+                axios.post('http://localhost:5000/', {"email":this.email, "password":this.password, "type":this.type})
             }
+        },
+        persist:function(){
+            localStorage.email = this.email
+        }
+    },
+    mounted(){
+        if (localStorage.email) {
+            this.email = localStorage.email
         }
     }
 }
