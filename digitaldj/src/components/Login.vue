@@ -11,7 +11,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="" @submit="login()">
+            <form action="" @submit.prevent="login">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Login</p>
@@ -43,7 +43,7 @@
                     <footer class="modal-card-foot">
                         <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
-                        <button class="button is-primary" @click="isComponentModalActive=false;persist();">Login</button>
+                        <button class="button is-primary" @click="isComponentModalActive=false">Login</button>
 
                         </div>
                     </footer>
@@ -61,15 +61,24 @@ export default {
         return {
             isComponentModalActive: false,
             showModal:true,
-            type: "login",
             email:"",
             password:""
         }
     },
     methods:{
         login:function(){
-            console.log(axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password}).response)
-            return axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+            let vm = this
+            axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+            .then(function(response){
+                if (response.status === 200){
+                    vm.$session.start()
+                    console.log("session started")
+                    vm.$router.go()
+                }
+            })
+            .then(function(){
+                vm.$router.push('/rooms')
+            })
         },
         persist:function(){
             localStorage.email = this.email

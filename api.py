@@ -98,12 +98,10 @@ def loginauth():
     if request.method=='POST':
         data=request.get_json()
         try:
-            ck = db.authuser(data['email'],data['password'])
-            if len(ck.as_dict()[0]) == 1:
-                print("Successful user authentication")
-                return ck
-            else:
-                print("Incorrect password")
+            db.authuser(data['email'],data['password'])
+            return "success"
+            #print("Successful user authentication")
+            #return jsonify({"msg":"successful user authentication {}"})
         except Exception as e:
             print(e)
             print("Error in user authentication")

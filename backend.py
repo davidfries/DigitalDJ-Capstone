@@ -15,7 +15,7 @@ class DigitalDJBackend():
     def authuser(self, email, password):
         query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
         try:
-            return self.db.query(query,email=email,password=password)
+            return self.db.query(query,email=email,password=password).as_dict(ordered=True)
         except Exception as e:
             print("User authentication error {}".format(e))
 

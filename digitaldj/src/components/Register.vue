@@ -76,7 +76,6 @@ export default {
         return {
             isComponentModalActive: false,
             showModal:true,
-            type: "register",
             email: "",
             password: "",
             confirmPassword: ""
