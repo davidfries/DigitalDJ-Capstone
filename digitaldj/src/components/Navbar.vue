@@ -34,6 +34,9 @@
                     <a v-if="!this.$session.exists()">
                         <login></login>
                     </a>
+                    <a v-if="this.$session.exists()">
+                        <logout></logout>
+                    </a>
                 </div>
             </b-navbar-item>
         </template>
@@ -43,6 +46,7 @@
 <script>
 import Login from './Login.vue'
 import Register from './Register.vue'
+import Logout from './Logout.vue'
 
 
 export default {
@@ -51,7 +55,7 @@ export default {
     username: String
   },
   components:{
-      Login,Register
+      Login,Register,Logout
   }
 }
 </script>
