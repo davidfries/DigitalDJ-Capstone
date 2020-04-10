@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request,redirect,session,render_template
+from flask import Flask,jsonify,request,redirect,session,render_template, Response
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send,join_room, leave_room
 import json
@@ -81,29 +81,35 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
-@app.route('/register',methods=['POST'])
-def registeruser():
+@app.route('/',methods=['POST'])
+def userauth():
     if request.method=='POST':
         data=request.get_json()
-        try:
-            db.createuser(data['email'],data['password'])
-            return jsonify({"msg":"successful user registration"})
-        except Exception as e:
-            print(e)
-            print("error in user registration")
-            return jsonify({"msg":"error in user registration {}".format(e)})
-
-@app.route('/login',methods=['POST'])
-def loginauth():
-    if request.method=='POST':
-        data=request.get_json()
-        try:
-            db.authuser(data['email'],data['password'])
-            return jsonify({"msg":"successful user authentication"})
-        except Exception as e:
-            print(e)
-            print("error in user authentication")
-            return jsonify({"msg":"error in user authentication {}".format(e)})
+        print(data)
+        # login
+        if data['type'] == "login":
+            try:
+                query = db.authuser(data['email'],data['password']).as_dict()
+                if len(query) == 1:
+                    print("successful user authentication")
+                    return Response(status=200)
+                else:
+                    print("incorrect password")
+                    return Response(status=400)
+            except Exception as e:
+                print(e)
+                print("error in user authentication")
+                return jsonify({"msg":"error in user authentication {}".format(e)})
+        # register
+        elif data['type'] == "register":
+            data=request.get_json()
+            try:
+                db.createuser(data['email'],data['password'])
+                return jsonify({"msg":"successful user registration"})
+            except Exception as e:
+                print(e)
+                print("error in user registration")
+                return jsonify({"msg":"error in user registration {}".format(e)})
         
 # SONG VOTE API METHOD
 @app.route('/getsongvotecount',methods=['GET'])

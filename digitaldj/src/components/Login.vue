@@ -11,7 +11,7 @@
                  aria-role="dialog"
                  aria-modal>
             <!-- <Login v-bind="formProps"></Login> -->
-            <form action="" @submit="login">
+            <form action="" @submit="login()">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Login</p>
@@ -61,13 +61,19 @@ export default {
         return {
             isComponentModalActive: false,
             showModal:true,
+            type: "login",
             email:"",
             password:""
         }
     },
     methods:{
         login:function(){
-            axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+            axios.post('http://localhost:5000/', {"email":this.email, "password":this.password, "type":this.type}
+            ).then(function (response) {
+                if (response.status == 200) {
+                    this.$session.start()
+                }
+            })
         },
         persist:function(){
             localStorage.email = this.email
