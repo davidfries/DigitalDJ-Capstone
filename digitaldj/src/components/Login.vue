@@ -67,7 +67,8 @@ export default {
     },
     methods:{
         login:function(){
-            axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+            console.log(axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password}).response)
+            return axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
         },
         persist:function(){
             localStorage.email = this.email

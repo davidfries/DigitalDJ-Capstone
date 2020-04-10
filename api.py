@@ -98,11 +98,15 @@ def loginauth():
     if request.method=='POST':
         data=request.get_json()
         try:
-            db.authuser(data['email'],data['password'])
-            return jsonify({"msg":"successful user authentication"})
+            ck = db.authuser(data['email'],data['password'])
+            if len(ck.as_dict()[0]) == 1:
+                print("Successful user authentication")
+                return ck
+            else:
+                print("Incorrect password")
         except Exception as e:
             print(e)
-            print("error in user authentication")
+            print("Error in user authentication")
             return jsonify({"msg":"error in user authentication {}".format(e)})
         
 # SONG VOTE API METHOD
