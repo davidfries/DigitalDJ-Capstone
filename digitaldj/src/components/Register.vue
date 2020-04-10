@@ -89,7 +89,7 @@ export default {
                 console.log("Passwords do not match.");
             }
             else{
-                axios.post('http://localhost:5000/', {"email":this.email, "password":this.password, "type":this.type})
+                axios.post('http://34.199.8.152:5000/', {"email":this.email, "password":this.password, "type":this.type})
             }
         },
         persist:function(){

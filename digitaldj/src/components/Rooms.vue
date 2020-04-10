@@ -84,7 +84,7 @@ export default {
     }
   },
   mounted() {
-    axios.get("http://localhost:5000/rooms").then(resp => {
+    axios.get("http://34.199.8.152:5000/rooms").then(resp => {
       // console.log(resp.data[0].roomname);
       this.data = resp.data;
     });

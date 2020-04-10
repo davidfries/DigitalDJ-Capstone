@@ -68,7 +68,7 @@ export default {
     methods:{
         login:function(){
             let vm = this
-            axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
+            axios.post('http://34.199.8.152:5000/login', {"email":this.email, "password":this.password})
             .then(function(response){
                 if (response.status === 200){
                     vm.$session.start()
