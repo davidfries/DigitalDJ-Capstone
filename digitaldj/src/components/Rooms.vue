@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="container is-fluid table">
+    <table class="container table">
       <thead>
         <tr>
           <th>Room Name</th>
