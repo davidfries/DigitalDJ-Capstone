@@ -5,8 +5,8 @@
     preload="auto"
     data-setup='{}'
  >
-  <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-  <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
+  <source src="http://stream.digitaldj.live/hls/teststream.m3u8" type="application/x-mpegURL">
+  <!-- <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"> -->
 </video>   
 </template>
 

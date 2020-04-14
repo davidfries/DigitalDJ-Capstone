@@ -40,6 +40,7 @@ export default {
       counter: '0',
       options:{
         controls:true,
+        autoplay:true
 
       },
       isConnected: false,
