@@ -11,8 +11,13 @@ class DigitalDJBackend():
     
     #AUTHENTICATION METHODS
 
-    def authuser(self, username, password, token):
-        pass
+    #def authuser(self, username, password, token):
+    def authuser(self, email, password):
+        query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
+        try:
+            return self.db.query(query,email=email,password=password).as_dict(ordered=True)
+        except Exception as e:
+            print("User authentication error {}".format(e))
 
     def changepassword(self,password,token):
         pass
@@ -68,9 +73,22 @@ class DigitalDJBackend():
 
 
     #USER METHODS
-    def createuser(self,userid,password,email):
-        query="INSERT INTO users (userid, email, password) VALUES (:userid,crypt(:password, gen_salt('bf')),:email)"
+    def createuser(self,email,password):
+        client_key = self.genid()
+        query="INSERT INTO users (client_key, email, password) VALUES (:client_key,:email,crypt(:password, gen_salt('bf')))"
         try:
-            self.db.query(query,userid=userid,email=email,password=password)
+            self.db.query(query,client_key=client_key,email=email,password=password)
         except Exception as e:
             print("create user error {}".format(e))
+
+    def addclienttoroom(self,clientid,room_key):
+        # clientid=self.genid()
+        query="insert into rooms_activeusers(clientid,room_key) values(:clientid,:room_key)"
+        self.db.query(query,clientid=clientid,room_key=room_key)
+
+    def getclientsinroom(self,room_key):
+        query="select count(*) from rooms_activeusers where room_key=:room_key"
+        return self.db.query(query,room_key=room_key).first().export('json')
+    def leaveroom(self,client_key):
+        query='delete from rooms_activeusers where clientid=:client_key'
+        self.db.query(query,client_key=client_key)

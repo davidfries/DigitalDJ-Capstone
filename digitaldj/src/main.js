@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import VueSession from 'vue-session'
 import Buefy from 'buefy'
 // import socketio from 'socket.io-client';
 // import VueSocketIO from 'vue-socket.io-extended';
@@ -21,6 +22,7 @@ import Contact from './components/Contact.vue'
 
 Vue.use(Buefy)
 Vue.use(VueRouter)
+Vue.use(VueSession)
 Vue.config.productionTip = false
 const routes = [
   { path: '/rooms', name:"rooms", component: Rooms},

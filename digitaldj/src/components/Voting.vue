@@ -87,7 +87,7 @@ export default {
     },
     mounted(){
         // console.log(`http://localhost:5000/getsongvotecount?song_key=${this.song_key}`)
-        console.log("Roomid from local storage"+localStorage.getItem("room_key"))
+        // console.log("Roomid from local storage"+localStorage.getItem("room_key"))
         axios.get(`http://localhost:5000/getsongvotecount?song_key=${this.song_key}`).then(resp => {
     //   console.log(resp.data[0].roomname);
         
