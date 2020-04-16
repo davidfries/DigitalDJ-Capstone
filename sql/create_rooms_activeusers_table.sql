@@ -1,0 +1,1 @@
+create table rooms_activeusers(id serial, clientid varchar(50),room_key varchar(10))
