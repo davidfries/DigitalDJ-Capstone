@@ -11,7 +11,6 @@ import MainPage from './components/MainPage.vue'
 import Room from './components/Room.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
-import Chat from './components/Chat.vue'
 // try{
 // const socket = socketio('http://localhost:4113');
 // Vue.use(VueSocketIO, socket)
@@ -32,7 +31,6 @@ const routes = [
   
   { path: '/about', name: "about", component: About, props: true },
   { path: '/contact', name: "contact", component: Contact, props: true },
-  { path: '/chat', name: "chat", component: Chat, props: true }
 
 ]
 const router = new VueRouter({

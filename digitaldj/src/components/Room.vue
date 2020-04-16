@@ -19,6 +19,8 @@
         </tr>
       </tbody>
     </table>
+
+    <Chat></Chat>
   </div>
 </template>
 
@@ -27,6 +29,7 @@ const axios = require("axios");
 
 import Voting from "./Voting.vue";
 import AddSong from "./AddSong.vue";
+import Chat from "./Chat.vue";
 import socketio from "socket.io-client";
 
 export default {
@@ -102,7 +105,8 @@ const socket = socketio("http://localhost:5000");
   },
   components: {
     Voting,
-    AddSong
+    AddSong,
+    Chat
   }
 };
 </script>
