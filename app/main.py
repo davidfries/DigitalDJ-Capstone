@@ -64,8 +64,11 @@ def update_songs(data):
 def authstream():
     if request.method=='POST':
         print("Posted from server")
+        return Response("{'msg':'Successful stream join'",status=201,mimetype='application/json')
     elif request.method =='GET':
         print("Get from server")
+        return Response("{'msg':'UnSuccessful stream join'",status=404,mimetype='application/json')
+
 
 @app.route('/getsongs',methods=['GET'])
 def getsongs():
