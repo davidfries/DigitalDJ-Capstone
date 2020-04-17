@@ -1,7 +1,7 @@
 <template>
 
   <div class="container has-text-centered">
-    <Stream :options="options"></Stream>
+    <Stream :options="options" :room_key="room_key"></Stream>
     <h3>Active Users: {{counter}}</h3>
     <AddSong></AddSong>
 
