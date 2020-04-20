@@ -3,24 +3,30 @@
     <h3>Active Users: {{counter}}</h3>
     <AddSong></AddSong>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Song Title</th>
-          <th>Vote!</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="row in data" :key="row.id">
-          <td>{{row.song_title}}</td>
-          <td>
-            <voting :song_key="row.song_key"></voting>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <section>
+      <section class="vote">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Song Title</th>
+              <th>Vote!</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in data" :key="row.id">
+              <td>{{row.song_title}}</td>
+              <td>
+                <voting :song_key="row.song_key"></voting>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    <Chat></Chat>
+      <section class="chatbox">
+        <Chat></Chat>
+      </section>
+    </section>
   </div>
 </template>
 
@@ -110,3 +116,8 @@ const socket = socketio("http://localhost:5000");
   }
 };
 </script>
+
+<style>
+  section.vote{float:left;}
+  section.chatbox{float:right;}
+</style>
