@@ -20,16 +20,18 @@
             </div>
 
             <footer class="card-footer">
-                <b-field>
-                    <b-input
-                        v-model="message"
-                        :value="message"
-                        placeholder="Send message"
-                        maxlength="200"
-                        type="textarea">
-                    </b-input>
-                </b-field>
-                <b-button class="button is-primary">Send</b-button>
+                <form @submit.prevent="send">
+                    <b-field>
+                        <b-input
+                            v-model="message"
+                            :value="message"
+                            placeholder="Send message"
+                            maxlength="200"
+                            type="textarea">
+                        </b-input>
+                    </b-field>
+                    <b-button class="button is-primary">Send</b-button>
+                </form>
             </footer>
         </div>
     </section>
@@ -39,19 +41,30 @@
 
 
 <script>
-//const axios = require("axios");
+const axios = require("axios");
 export default {
     name:"Chat",
+    props: ["room_key"],
     data(){
         return{
+            messages:[],
             message: "",
-            sender: "",
-            room: ""
+            sender: localStorage.sender,
+            room: this.room_key
         }
     },
     methods:{
-        newMessage:function(){
-            
+        send:function(){
+            let vm = this
+            console.log(this.sender)
+            console.log(this.room)
+            console.log(this.message)
+            axios.post('http://localhost:5000/chat', {"message":this.message, "sender":this.sender, "room":this.room})
+            .then(function(response){
+                if (response.status === 200){
+                    vm.messages.push(vm.message)
+                }
+            })
         }
     }
 }

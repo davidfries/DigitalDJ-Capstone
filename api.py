@@ -144,4 +144,18 @@ def getid():
 if __name__ == '__main__':
     socketio.run(app,host='localhost',port=5000,debug=True)
 
+# CHAT API METHOD
+
+@app.route('/chat',methods=['POST'])
+def sendMessage():
+    if request.method=='POST':
+        data=request.get_json()
+        try:
+            db.sendMessage(data['message'],data['sender'],data['room'])
+            print("Message sent")
+            return "success"
+        except Exception as e:
+            print(e)
+            print("Error when sending message")
+            return jsonify({"msg":"error when sending message {}".format(e)})
    

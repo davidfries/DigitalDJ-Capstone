@@ -92,3 +92,11 @@ class DigitalDJBackend():
     def leaveroom(self,client_key):
         query='delete from rooms_activeusers where clientid=:client_key'
         self.db.query(query,client_key=client_key)
+
+    # CHAT METHODS
+    def sendMessage(self,message,sender,room):
+        query="INSERT INTO messages (sender, room, message) VALUES (:sender,:room,:message)"
+        try:
+            self.db.query(query,sender=sender,room=room,message=message)
+        except Exception as e:
+            print("create user error {}".format(e))
