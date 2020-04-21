@@ -67,7 +67,11 @@ def authstream():
         print("Posted from server")
         try:
             url=urlparse(request.form['tcurl'])
+            room_key=request.form['name']
             stream_key=parse_qs(url.query)['streamkey'][0]
+            if len(db.authstream(room_key,stream_key))>0:
+                return Response("{'msg':'Successful stream join'",status=201,mimetype='application/json')
+
             print(stream_key)
         except Exception as e:
             print(e)
@@ -75,7 +79,7 @@ def authstream():
             return Response("{'msg':'UnSuccessful stream join'",status=404,mimetype='application/json')
 
 
-        return Response("{'msg':'Successful stream join'",status=201,mimetype='application/json')
+        return Response("{'msg':'UnSuccessful stream join'",status=404,mimetype='application/json')
     elif request.method =='GET':
         print("Get from server")
         return Response("{'msg':'UnSuccessful stream join'",status=404,mimetype='application/json')
