@@ -62,9 +62,19 @@ def update_songs(data):
 
 @app.route('/on_publish',methods=['GET','POST'])
 def authstream():
+    from urllib.parse import urlparse,parse_qs
     if request.method=='POST':
         print("Posted from server")
-        print([x for x in request.form.keys()])
+        try:
+            url=urlparse(request.form['tcurl'])
+            stream_key=parse_qs(url.query)['streamkey'][0]
+            print(stream_key)
+        except Exception as e:
+            print(e)
+            print("error in stream key parse")
+            return Response("{'msg':'UnSuccessful stream join'",status=404,mimetype='application/json')
+
+
         return Response("{'msg':'Successful stream join'",status=201,mimetype='application/json')
     elif request.method =='GET':
         print("Get from server")
