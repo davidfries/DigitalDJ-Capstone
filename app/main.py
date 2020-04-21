@@ -64,7 +64,7 @@ def update_songs(data):
 def authstream():
     if request.method=='POST':
         print("Posted from server")
-        print(request.data)
+        print([x for x in request.args.listvalues()])
         return Response("{'msg':'Successful stream join'",status=201,mimetype='application/json')
     elif request.method =='GET':
         print("Get from server")
