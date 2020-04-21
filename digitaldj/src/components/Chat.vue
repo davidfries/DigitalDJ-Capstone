@@ -14,7 +14,7 @@
                     <div v-for="message in messages" :key="message.id">
                         <span class="text-info">[{{ message.user }}]: </span>
                         <span>{{message.message}}</span>
-                        <span class="text-secondary time">{{message.timestamp}}</span>
+                        <!--<span class="text-secondary time">{{message.timestamp}}</span>-->
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                             type="textarea">
                         </b-input>
                     </b-field>
-                    <b-button class="button is-primary">Send</b-button>
+                    <b-button class="button is-primary" @click="processmessage(message)">Send</b-button>
                 </form>
             </footer>
         </div>
@@ -42,30 +42,58 @@
 
 <script>
 const axios = require("axios");
+const lo = require("lodash");
 export default {
     name:"Chat",
-    props: ["room_key"],
     data(){
         return{
             messages:[],
             message: "",
-            sender: localStorage.sender,
-            room: this.room_key
+            sender: ""
         }
     },
+    created(){
+        this.debouncedmessage=lo.debounce(this.sendmessage,500)
+    },
     methods:{
-        send:function(){
+        sendmessage:function(){
             let vm = this
-            console.log(this.sender)
-            console.log(this.room)
-            console.log(this.message)
-            axios.post('http://localhost:5000/chat', {"message":this.message, "sender":this.sender, "room":this.room})
-            .then(function(response){
-                if (response.status === 200){
-                    vm.messages.push(vm.message)
-                }
+            if(this.$session.exists()){
+                vm.sender = this.$session.get('email')
+            }
+            //console.log(vm.sender)
+            //console.log(vm.room)
+            //console.log(vm.message)
+            axios.post('http://localhost:5000/chat', {
+                "message":vm.message, 
+                "sender":vm.sender, 
+                "room":localStorage.getItem("room_key")
             })
+            .then(function(){
+                axios.get(`http://localhost:5000/chat`)
+                .then(function(response){
+                    vm.messages = response.data
+                })
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        },
+        processvote:function(msg){
+            let vm = this
+            this.message = msg
+            this.debouncedmessage
+            axios.get(`http://localhost:5000/chat`)
+                .then(function(response){
+                    vm.messages = response.data
+                })
         }
+    },
+    mounted(){
+        axios.get(`http://localhost:5000/chat`)
+                .then(resp => {
+                    this.messages = resp.data
+                })
     }
 }
 </script>

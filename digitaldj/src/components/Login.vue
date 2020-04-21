@@ -72,6 +72,7 @@ export default {
             .then(function(response){
                 if (response.status === 200){
                     vm.$session.start()
+                    vm.$session.set('email', vm.email)
                     console.log("session started")
                     vm.$router.go()
                 }
