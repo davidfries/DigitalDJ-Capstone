@@ -59,7 +59,8 @@ def update_songs(data):
     songs=db.getsongs(data['room_key'])
     emit("client_songs_update",songs,broadcast=True,room=data['room_key'])
 
-
+#checks when new stream is published to server whether stream_key exists in DB
+#and checks if that key corresponds to that room
 @app.route('/on_publish',methods=['GET','POST'])
 def authstream():
     from urllib.parse import urlparse,parse_qs
