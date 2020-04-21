@@ -71,6 +71,7 @@ def authstream():
             stream_key=parse_qs(url.query)['streamkey'][0]
             print(room_key)
             print(stream_key)
+            print(db.authstream(room_key,stream_key))
             if len(db.authstream(room_key,stream_key))>0:
                 return Response("{'msg':'Successful stream join'",status=201,mimetype='application/json')
 
