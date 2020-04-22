@@ -5,7 +5,7 @@
     preload="auto"
     data-setup='{}'
  >
-  <source src="http://stream.digitaldj.live/hls/teststream.m3u8" type="application/x-mpegURL">
+  <source :src="url" type="application/x-mpegURL">
   <!-- <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"> -->
 </video>   
 </template>
@@ -17,16 +17,11 @@ import videojs from 'video.js'
 
 export default {
     name:"Stream",
-    props:{
-        type:Object,
-        default(){
-            return{};
-        },
-        //room_key
-    },
+    props:["room_key"],
     data(){
         return{
-            player:null
+            player:null,
+            url:`http://stream.digitaldj.live/hls/${this.room_key}.m3u8`
         }
     },
     mounted(){
