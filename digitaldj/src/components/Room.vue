@@ -1,5 +1,7 @@
 <template>
+
   <div class="container has-text-centered">
+    <Stream :options="options" :room_key="room_key"></Stream>
     <h3>Active Users: {{counter}}</h3>
     <AddSong></AddSong>
 
@@ -32,7 +34,7 @@
 
 <script>
 const axios = require("axios");
-
+import Stream from "./Stream.vue"
 import Voting from "./Voting.vue";
 import AddSong from "./AddSong.vue";
 import Chat from "./Chat.vue";
@@ -45,6 +47,11 @@ export default {
     return {
       data: [],
       counter: '0',
+      options:{
+        controls:true,
+        autoplay:true
+
+      },
       isConnected: false,
       client_key:"",
       columns: [
@@ -112,7 +119,8 @@ const socket = socketio("http://localhost:5000");
   components: {
     Voting,
     AddSong,
-    Chat
+    Chat,
+    Stream
   }
 };
 </script>

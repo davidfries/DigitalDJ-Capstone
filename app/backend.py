@@ -27,6 +27,10 @@ class DigitalDJBackend():
     def returnuser(self,username):
         return "Test User123"
 
+    def authstream(self,room_key,stream_key):
+        sql="select * from auth_streams where room_key =:room_key and stream_key = :stream_key"
+        return self.db.query(sql,room_key=room_key,stream_key=stream_key).all()
+
 
     #ROOMS METHODS
     def getrooms(self):
