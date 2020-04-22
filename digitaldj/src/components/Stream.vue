@@ -22,7 +22,7 @@ export default {
         default(){
             return{};
         },
-        room_key
+        //room_key
     },
     data(){
         return{
