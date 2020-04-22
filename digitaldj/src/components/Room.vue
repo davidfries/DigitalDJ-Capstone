@@ -24,7 +24,7 @@
       </section>
 
       <section class="chatbox">
-        <Chat v-bind:room_key="room_key"></Chat>
+        <Chat></Chat>
       </section>
     </section>
   </div>

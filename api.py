@@ -136,13 +136,6 @@ def addroom():
             print(e)
             print("error in room creation")
             return jsonify({"msg":"error in room creation {}".format(e)})
-@app.route('/newid',methods=['GET'])
-def getid():
-    if request.method=='GET':
-        data={"id":db.genid()}
-        return jsonify(data)
-if __name__ == '__main__':
-    socketio.run(app,host='localhost',port=5000,debug=True)
 
 # CHAT API METHOD
 @app.route('/chat',methods=['GET', 'POST'])
@@ -152,7 +145,7 @@ def message():
         data=request.get_json()
         try:
             db.getMessages(data['room'])
-            print("Reveived messages")
+            print("Received messages")
             return "success"
         except Exception as e:
             print(e)
@@ -169,3 +162,11 @@ def message():
             print(e)
             print("Error when sending message")
             return jsonify({"msg":"error when sending message {}".format(e)})
+
+@app.route('/newid',methods=['GET'])
+def getid():
+    if request.method=='GET':
+        data={"id":db.genid()}
+        return jsonify(data)
+if __name__ == '__main__':
+    socketio.run(app,host='localhost',port=5000,debug=True)
