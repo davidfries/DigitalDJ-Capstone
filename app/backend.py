@@ -98,16 +98,16 @@ class DigitalDJBackend():
         self.db.query(query,client_key=client_key)
 
     # CHAT METHODS
-    def sendMessage(self,message,sender,room):
-        query="INSERT INTO messages (sender, room, message) VALUES (:sender,:room,:message)"
+    def sendMessage(self,message,sender,room_key):
+        query="INSERT INTO messages (sender, room_key, message) VALUES (:sender,:room_key,:message)"
         try:
-            self.db.query(query,sender=sender,room=room,message=message)
+            self.db.query(query,sender=sender,room_key=room_key,message=message)
         except Exception as e:
             print("send message error {}".format(e))
 
-    def getMessages(self,room):
-        query="SELECT * FROM messages WHERE room=:room"
+    def getMessages(self,room_key):
+        query="SELECT * FROM messages WHERE room_key=:room_key"
         try:
-            return self.db.query(query, room=room).as_dict(ordered=True)
+            return self.db.query(query, room_key=room_key).as_dict(ordered=True)
         except Exception as e:
             print("get message error {}".format(e))
