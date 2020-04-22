@@ -140,17 +140,13 @@ def addroom():
 # CHAT API METHOD
 @app.route('/chat',methods=['GET', 'POST'])
 def message():
-    print("in message()")
     if request.method=='GET':
-        data=request.get_json()
         try:
-            db.getMessages(data['room'])
-            print("Received messages")
-            return "success"
+            return jsonify(db.getMessages(request.args.get("room")))
         except Exception as e:
             print(e)
-            print("Error when getting message")
-            return jsonify({"msg":"error when getting message {}".format(e)})
+            print("Error when getting messages")
+            return jsonify({"msg":"error when getting messages {}".format(e)})
 
     if request.method=='POST':
         data=request.get_json()

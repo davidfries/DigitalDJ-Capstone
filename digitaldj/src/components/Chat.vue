@@ -12,7 +12,7 @@
             <div class="card-content">
                 <div class="messages" v-chat-scroll="{always: false, smooth: true}">
                     <div v-for="message in messages" :key="message.message_id">
-                        <span class="text-info">[{{ message.user }}]: </span>
+                        <span class="text-info">[{{ message.sender }}]: </span>
                         <span>{{message.message}}</span>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
 
 <script>
 const axios = require("axios");
-//const lo = require("lodash");
+const lo = require("lodash");
 export default {
     name:"Chat",
     data(){
@@ -51,9 +51,9 @@ export default {
             sender: ""
         }
     },
-    //created(){
-    //    this.debouncedmessage=lo.debounce(this.sendmessage,500)
-    //},
+    created(){
+        this.debouncedmessage=lo.debounce(this.sendmessage,500)
+    },
     methods:{
         sendmessage:function(){
             let vm = this
@@ -69,9 +69,7 @@ export default {
                 "room":localStorage.getItem("room_key")
             })
             .then(function(){
-                axios.get(`http://localhost:5000/chat`, {
-                    "room":localStorage.getItem("room_key")
-                })
+                axios.get(`http://localhost:5000/chat?room=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
                 })
@@ -80,25 +78,21 @@ export default {
                 console.log(error);
             })
         },
-        /*processmessage:function(msg){
+        processmessage:function(msg){
             let vm = this
             this.message = msg
-            this.debouncedmessage
-            axios.get(`http://localhost:5000/chat`, {
-                "room":localStorage.getItem("room_key")
-            })
+            this.debouncedmessage()
+            axios.get(`http://localhost:5000/chat?room=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
                 })
         }
     },
     mounted(){
-        axios.get(`http://localhost:5000/chat`, {
-            "room":localStorage.getItem("room_key")
-        })
+        axios.get(`http://localhost:5000/chat?room=${localStorage.getItem("room_key")}`)
                 .then(resp => {
                     this.messages = resp.data
-                })*/
+                })
     } 
 }
 </script>

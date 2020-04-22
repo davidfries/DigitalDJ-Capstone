@@ -99,8 +99,11 @@ class DigitalDJBackend():
         try:
             self.db.query(query,sender=sender,room=room,message=message)
         except Exception as e:
-            print("create user error {}".format(e))
+            print("send message error {}".format(e))
 
     def getMessages(self,room):
         query="SELECT * FROM messages WHERE room=:room"
-        return self.db.query(query, room=room)
+        try:
+            return self.db.query(query, room=room).as_dict(ordered=True)
+        except Exception as e:
+            print("get message error {}".format(e))
