@@ -88,7 +88,6 @@ def authstream():
         print("Get from server")
         return Response("{'msg':'UnSuccessful stream join'",status=404,mimetype='application/json')
 
-
 @app.route('/getsongs',methods=['GET'])
 def getsongs():
     return jsonify(db.getsongs(request.args.get("room_key")))
@@ -164,12 +163,33 @@ def addroom():
             print(e)
             print("error in room creation")
             return jsonify({"msg":"error in room creation {}".format(e)})
+
+# CHAT API METHOD
+@app.route('/chat',methods=['GET', 'POST'])
+def message():
+    if request.method=='GET':
+        try:
+            return jsonify(db.getMessages(request.args.get("room")))
+        except Exception as e:
+            print(e)
+            print("Error when getting messages")
+            return jsonify({"msg":"error when getting messages {}".format(e)})
+
+    if request.method=='POST':
+        data=request.get_json()
+        try:
+            db.sendMessage(data['message'],data['sender'],data['room'])
+            print("Message sent")
+            return "success"
+        except Exception as e:
+            print(e)
+            print("Error when sending message")
+            return jsonify({"msg":"error when sending message {}".format(e)})
+
 @app.route('/newid',methods=['GET'])
 def getid():
     if request.method=='GET':
         data={"id":db.genid()}
         return jsonify(data)
 if __name__ == '__main__':
-    socketio.run(app,host='0.0.0.0',port=5000,debug=True)
-
-   
+    socketio.run(app,host='localhost',port=5000,debug=True)

@@ -26,9 +26,11 @@ class DigitalDJBackend():
 
     def returnuser(self,username):
         return "Test User123"
+
     def authstream(self,room_key,stream_key):
         sql="select * from auth_streams where room_key =:room_key and stream_key = :stream_key"
         return self.db.query(sql,room_key=room_key,stream_key=stream_key).all()
+
 
     #ROOMS METHODS
     def getrooms(self):
@@ -94,3 +96,18 @@ class DigitalDJBackend():
     def leaveroom(self,client_key):
         query='delete from rooms_activeusers where clientid=:client_key'
         self.db.query(query,client_key=client_key)
+
+    # CHAT METHODS
+    def sendMessage(self,message,sender,room):
+        query="INSERT INTO messages (sender, room, message) VALUES (:sender,:room,:message)"
+        try:
+            self.db.query(query,sender=sender,room=room,message=message)
+        except Exception as e:
+            print("send message error {}".format(e))
+
+    def getMessages(self,room):
+        query="SELECT * FROM messages WHERE room=:room"
+        try:
+            return self.db.query(query, room=room).as_dict(ordered=True)
+        except Exception as e:
+            print("get message error {}".format(e))
