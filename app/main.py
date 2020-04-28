@@ -157,7 +157,7 @@ def addroom():
     if request.method=='POST':
         data=request.get_json()
         try:
-            db.createroom(data['room_name'],data['quantity'],data['roomsecurity'],data['genre'])
+            db.createroom(data['room_name'],data['max_listeners'],data['security'],data['genre'])
             return jsonify({"msg":"successful room creation"})
         except Exception as e:
             print(e)
