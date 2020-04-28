@@ -169,7 +169,7 @@ def addroom():
 def message():
     if request.method=='GET':
         try:
-            return jsonify(db.getMessages(request.args.get("room")))
+            return jsonify(db.getMessages(request.args.get("room_key")))
         except Exception as e:
             print(e)
             print("Error when getting messages")
@@ -178,7 +178,7 @@ def message():
     if request.method=='POST':
         data=request.get_json()
         try:
-            db.sendMessage(data['message'],data['sender'],data['room'])
+            db.sendMessage(data['message'],data['sender'],data['room_key'])
             print("Message sent")
             return "success"
         except Exception as e:

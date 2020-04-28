@@ -1,6 +1,6 @@
 INSERT INTO messages
 (
-    sender, room, message
+    sender, room_key, message
 )
     values
     (

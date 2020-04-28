@@ -10,7 +10,7 @@
         -->
         <div class = "card">
             <div class="card-content">
-                <div class="messages" v-chat-scroll="{always: false, smooth: true}">
+                <div class="content" v-chat-scroll="{always: false, smooth: true}">
                     <div v-for="message in messages" :key="message.message_id">
                         <span class="text-info">[{{ message.sender }}]: </span>
                         <span>{{message.message}}</span>
@@ -19,7 +19,7 @@
             </div>
 
             <footer class="card-footer">
-                <form @submit.prevent="sendmessage()">
+                <form v-if="this.$session.exists()" @submit.prevent="processmessage(message)">
                     <b-field>
                         <b-input
                             v-model="message"
@@ -29,8 +29,11 @@
                             type="textarea">
                         </b-input>
                     </b-field>
-                    <b-button class="button is-primary" @click="sendmessage()">Send</b-button>
+                    <b-button class="button is-primary" @click="processmessage(message)">Send</b-button>
                 </form>
+                <p v-if="!this.$session.exists()">
+                    Please log in to send messages.
+                </p>
             </footer>
         </div>
     </section>
@@ -60,16 +63,13 @@ export default {
             if(this.$session.exists()){
                 vm.sender = this.$session.get('email')
             }
-            console.log(vm.sender)
-            console.log(localStorage.getItem("room_key"))
-            console.log(vm.message)
             axios.post('http://localhost:5000/chat', {
                 "message":vm.message, 
                 "sender":vm.sender, 
-                "room":localStorage.getItem("room_key")
+                "room_key":localStorage.getItem("room_key")
             })
             .then(function(){
-                axios.get(`http://localhost:5000/chat?room=${localStorage.getItem("room_key")}`)
+                axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
                 })
@@ -82,14 +82,14 @@ export default {
             let vm = this
             this.message = msg
             this.debouncedmessage()
-            axios.get(`http://localhost:5000/chat?room=${localStorage.getItem("room_key")}`)
+            axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
                 })
         }
     },
     mounted(){
-        axios.get(`http://localhost:5000/chat?room=${localStorage.getItem("room_key")}`)
+        axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
                 .then(resp => {
                     this.messages = resp.data
                 })

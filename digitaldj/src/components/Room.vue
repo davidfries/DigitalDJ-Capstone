@@ -66,6 +66,9 @@ export default {
       ]
     };
   },
+  created(){
+    localStorage.setItem("room_key", this.room_key);
+  },
  destroyed(){
    console.log('destroyed room component')
    const socket = socketio("http://localhost:5000");
