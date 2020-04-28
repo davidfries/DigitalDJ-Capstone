@@ -109,7 +109,7 @@ def getallrooms():
     if request.method=='GET':
         return jsonify(db.getrooms())
 
-@app.route('/',methods=['POST'])
+@app.route('/register',methods=['POST'])
 def userauth():
     if request.method=='POST':
         data=request.get_json()
