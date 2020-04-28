@@ -1,0 +1,1 @@
+create table auth_streams(id serial, room_key varchar(10),stream_key varchar(150))
