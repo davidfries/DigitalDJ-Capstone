@@ -44,7 +44,7 @@
                                 v-model="stream_key"
                                 type="password"
                                 password-reveal
-                                :value="confirmPassword"
+                                :value="stream_key"
                                 
                                 placeholder="Retype your password"
                                 required>
@@ -93,7 +93,8 @@ export default {
             room_name: "",
             genre: "",
             max_listeners: 8,
-            security:"0"
+            security:"0",
+            stream_key:""
         }
     },
     methods:{
@@ -102,7 +103,8 @@ export default {
                 "room_name":this.room_name,
                 "genre":this.genre,
                 "security":this.security,
-                "max_listeners":this.max_listeners
+                "max_listeners":this.max_listeners,
+                "stream_key":this.stream_key
             }
         axios.post('http://localhost:5000/addroom',data).then(function(response){
             console.log(response)
