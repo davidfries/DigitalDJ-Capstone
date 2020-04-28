@@ -66,7 +66,6 @@
                         <b-checkbox
                         v-model="security"
                         :value="security"
-                        required
                         >Private?</b-checkbox>
                     </section>
                     <footer class="modal-card-foot">

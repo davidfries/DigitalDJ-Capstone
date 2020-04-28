@@ -31,15 +31,20 @@ class DigitalDJBackend():
         sql="select * from auth_streams where room_key =:room_key and stream_key = :stream_key"
         return self.db.query(sql,room_key=room_key,stream_key=stream_key).all()
 
-
+    def writeauthstream(self,room_key,stream_key):
+        sql="insert into auth_streams(room_key,stream_key) values(:room_key,:stream_key)"
+        self.db.query(sql,room_key=room_key,stream_key=stream_key)
     #ROOMS METHODS
     def getrooms(self):
         sql="select * from rooms where room_security=0"
         return self.db.query(sql).as_dict(ordered=True)
 
-    def createroom(self,roomname, quantity, security, genre, owner=None):
+    def createroom(self,roomname, quantity, security, genre,stream_key, owner=None):
+        room_key=self.genid()
         sql="insert into rooms(room_name,genre,max_quantity,room_security,room_key) values(:room_name,:genre,:quantity,:room_security,:key)"
-        self.db.query(sql,room_security=security,quantity=quantity,room_name=roomname,genre=genre,key=self.genid())
+        self.db.query(sql,room_security=security,quantity=quantity,room_name=roomname,genre=genre,key=room_key)
+        self.writeauthstream(room_key,stream_key)
+    
 
     def deleteroom(self,roomid):
         pass
