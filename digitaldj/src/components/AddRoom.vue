@@ -39,17 +39,7 @@
                             </b-input>
                         </b-field>
 
-                        <b-field label="Confirm Password">
-                            <b-input
-                                v-model="confirmPassword"
-                                type="password"
-                                id="confirmPassword"
-                                :value="confirmPassword"
-                                
-                                placeholder="Retype your password"
-                                required>
-                            </b-input>
-                        </b-field>
+                        
 
                         <b-field label="Max Listeners">
                             <b-input
@@ -99,7 +89,7 @@ export default {
     },
     methods:{
         addroom:function(){
-            data={
+            var data={
                 "room_name":this.room_name,
                 "genre":this.genre,
                 "security":this.security,

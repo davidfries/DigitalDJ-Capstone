@@ -35,6 +35,9 @@
                         <login></login>
                     </a>
                     <a v-if="this.$session.exists()">
+                        <add-room></add-room>
+                    </a>
+                    <a v-if="this.$session.exists()">
                         <logout></logout>
                     </a>
                 </div>
@@ -47,7 +50,7 @@
 import Login from './Login.vue'
 import Register from './Register.vue'
 import Logout from './Logout.vue'
-
+import AddRoom from './AddRoom.vue'
 
 export default {
   name: 'Navbar',
@@ -55,7 +58,7 @@ export default {
     username: String
   },
   components:{
-      Login,Register,Logout
+      Login,Register,Logout,AddRoom
   }
 }
 </script>
