@@ -39,19 +39,28 @@
                             </b-input>
                         </b-field>
 
-                        
+                        <b-field label="Stream Key">
+                            <b-input
+                                v-model="stream_key"
+                                type="password"
+                                password-reveal
+                                :value="confirmPassword"
+                                
+                                placeholder="Retype your password"
+                                required>
+                            </b-input>
+                        </b-field>
 
                         <b-field label="Max Listeners">
-                            <b-input
+                            <b-numberinput
                                 v-model="max_listeners"
                                 type="number"
                                 id="confirmPassword"
                                 :value="max_listeners"
                                 min="2"
                                 max="32" 
-                                placeholder="8"
                                 required>
-                            </b-input>
+                            </b-numberinput>
                         </b-field>
 
                         <b-checkbox
@@ -83,7 +92,7 @@ export default {
             showModal:true,
             room_name: "",
             genre: "",
-            max_listeners: "",
+            max_listeners: 8,
             security:"0"
         }
     },
