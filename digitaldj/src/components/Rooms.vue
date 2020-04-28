@@ -1,10 +1,10 @@
 <template>
   <div>
-    <table class="container is-fluid table">
+    <table class="container table">
       <thead>
         <tr>
           <th>Room Name</th>
-          <th>Listeners</th>
+          <th>Max Quantity</th>
           <th>Genre</th>
           <th>Join</th>
         </tr>
@@ -13,10 +13,10 @@
           <!-- these need to match the fields below in column setup -->
         <tr v-for="row in data" :key="row.id">
           <td>{{row.room_name}}</td>
-          <td>{{row.listeners}}</td>
+          <td>{{row.max_quantity}}</td>
           <td>{{row.genre}}</td>
           <td>
-            <router-link  class="button is-warning" :to="{name:'room',params:{room_key:row.room_key}}">Join Room</router-link>
+            <router-link id="join" class="button is-warning" :to="{name:'room',params:{room_key:row.room_key}}">Join Room</router-link>
           </td>
         </tr>
       </tbody>
@@ -45,34 +45,7 @@ export default {
       data: [],
       room_key:localStorage.getItem("room_key"),
       // name of columns of table, json header name
-      columns: [
-        {
-          field: "id",
-          label: "ID",
-          numeric: true
-        },
-        {
-          field: "room_name",
-          label: "Room Name"
-        },
-        {
-          field: "listeners",
-          label: "Number of Listeners",
-          numeric: true
-        },
-        {
-          field: "genre",
-          label: "Genre"
-        },
-        {
-          field: "room_security",
-          label: "Security"
-        },
-        {
-          field: "join",
-          label: "Join"
-        }
-      ]
+      
     };
   },
   methods:{
@@ -85,7 +58,7 @@ export default {
   },
   mounted() {
     axios.get("http://localhost:5000/rooms").then(resp => {
-      // console.log(resp.data[0].roomname);
+      // console.log(resp.data[0].max_quantity);
       this.data = resp.data;
     });
   }

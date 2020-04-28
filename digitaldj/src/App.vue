@@ -36,11 +36,11 @@ export default {
 // THIS IS WHERE YOU EDIT COLORS FOR CSS PLEASE REFERENCE BULMA DOCS
 <style lang="scss">
 @import "~bulma/sass/utilities/_all";
-$primary: #3379AE;
-$danger: #FC960F;
+$primary: #4D658D;
+$danger: #432F75;
 $info: #7EB1D8;
-$success: #0A4B7D;
-$warning: #FFAC3E;
+$success: #72AB97;
+$warning: #635192;
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
