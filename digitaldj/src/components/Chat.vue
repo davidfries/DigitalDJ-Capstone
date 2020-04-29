@@ -50,15 +50,18 @@ const lo = require("lodash");
 const socket = socketio("http://localhost:5000");
 export default {
     name:"Chat",
+    props:["chat_data"],
     data(){
         return{
-            messages:[],
+            messages:this.chat_data,
             message: "",
             sender: ""
         }
     },
     created(){
         this.debouncedmessage=lo.debounce(this.sendmessage,500)
+        var temp={"room_key":`${localStorage.getItem("room_key")}`}
+        socket.emit("update_chat",temp)
     },
     methods:{
         sendmessage:function(){
@@ -75,33 +78,25 @@ export default {
                 axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
+                    var temp={"room_key":`${localStorage.getItem("room_key")}`}
+                    socket.emit("update_chat",temp)
                 })
             })
             .catch(function(error){
                 console.log(error);
             })
-            var data={"room_key":`${localStorage.getItem("room_key")}`}
-            socket.emit("update_songs",data)
         },
         processmessage:function(msg){
-            let vm = this
             this.message = msg
             this.debouncedmessage()
-            axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
-                .then(function(response){
-                    vm.messages = response.data
-                })
         }
     },
     mounted(){
         let vm = this
         axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
             .then(resp => {
-                this.messages = resp.data
+                vm.messages = resp.data
             })
-        socket.on("client_chat_update",(resp)=>{
-            vm.messages = resp
-        })
     } 
 }
 </script>
