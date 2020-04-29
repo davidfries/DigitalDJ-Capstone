@@ -25,7 +25,7 @@
         </table>
       </section>
 
-      <section class="chatbox">
+      <section class="right chatbox">
         <Chat></Chat>
       </section>
     </section>
@@ -129,6 +129,11 @@ const socket = socketio("http://localhost:5000");
 </script>
 
 <style>
-  section.vote{float:left;}
-  section.chatbox{float:right;}
+  section.vote{
+    float:left;
+  }
+  section.chatbox{
+    padding:100px;
+    width:50%;
+  }
 </style>

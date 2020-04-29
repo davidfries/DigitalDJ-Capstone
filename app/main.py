@@ -59,6 +59,11 @@ def update_songs(data):
     songs=db.getsongs(data['room_key'])
     emit("client_songs_update",songs,broadcast=True,room=data['room_key'])
 
+@socketio.on('update_chat')
+def update_chat(data):
+    resp=db.getMessages(data['room_key'])
+    emit("client_chat_update",resp,broadcast=True,room=data['room_key'])
+
 #checks when new stream is published to server whether stream_key exists in DB
 #and checks if that key corresponds to that room
 @app.route('/on_publish',methods=['GET','POST'])
