@@ -2,7 +2,7 @@
     <b-navbar>
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
-                
+                <img src="favicon-96x96.png">
             </b-navbar-item>
         </template>
         <template slot="start">
