@@ -25,8 +25,8 @@
         </table>
       </section>
 
-      <section class="chatbox">
-        <Chat></Chat>
+      <section class="right chatbox">
+        <Chat v-bind:chat_data="chat_data"></Chat>
       </section>
     </section>
   </div>
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       data: [],
+      chat_data: [],
       counter: '0',
       options:{
         controls:true,
@@ -102,7 +103,10 @@ const socket = socketio("http://localhost:5000");
       });
       socket.on("client_songs_update",(data)=>{
         vm.data=data
-      })
+      });
+      socket.on("client_chat_update",(resp)=>{
+        vm.chat_data = resp
+      });
       
     });
     // console.log(socket.id)
@@ -129,6 +133,11 @@ const socket = socketio("http://localhost:5000");
 </script>
 
 <style>
-  section.vote{float:left;}
-  section.chatbox{float:right;}
+  section.vote{
+    float:left;
+  }
+  section.chatbox{
+    padding:100px;
+    width:50%;
+  }
 </style>

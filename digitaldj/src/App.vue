@@ -35,6 +35,15 @@ export default {
 
 // THIS IS WHERE YOU EDIT COLORS FOR CSS PLEASE REFERENCE BULMA DOCS
 <style lang="scss">
+.right{
+  float:right;
+}
+.left{
+  float:left;
+}
+.pad{
+  padding:10px;
+}
 @import "~bulma/sass/utilities/_all";
 $primary: #4D658D;
 $danger: #432F75;

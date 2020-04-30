@@ -12,15 +12,16 @@
             <div class="card-content">
                 <div class="content" v-chat-scroll="{always: false, smooth: true}">
                     <div v-for="message in messages" :key="message.message_id">
-                        <span class="text-info">[{{ message.sender }}]: </span>
-                        <span>{{message.message}}</span>
+                        <span class="left">{{message.sender}}:</span>
+                        <br>
+                        <span class="message">{{message.message}}</span>
                     </div>
                 </div>
             </div>
 
             <footer class="card-footer">
                 <form v-if="this.$session.exists()" @submit.prevent="processmessage(message)">
-                    <b-field>
+                    <b-field class="left pad">
                         <b-input
                             v-model="message"
                             :value="message"
@@ -29,7 +30,7 @@
                             type="textarea">
                         </b-input>
                     </b-field>
-                    <b-button class="button is-primary" @click="processmessage(message)">Send</b-button>
+                    <b-button class="button right is-primary" @click="processmessage(message)">Send</b-button>
                 </form>
                 <p v-if="!this.$session.exists()">
                     Please log in to send messages.
@@ -43,19 +44,24 @@
 
 
 <script>
+import socketio from "socket.io-client";
 const axios = require("axios");
 const lo = require("lodash");
+const socket = socketio("http://localhost:5000");
 export default {
     name:"Chat",
+    props:["chat_data"],
     data(){
         return{
-            messages:[],
+            messages:this.chat_data,
             message: "",
             sender: ""
         }
     },
     created(){
         this.debouncedmessage=lo.debounce(this.sendmessage,500)
+        var temp={"room_key":`${localStorage.getItem("room_key")}`}
+        socket.emit("update_chat",temp)
     },
     methods:{
         sendmessage:function(){
@@ -72,6 +78,8 @@ export default {
                 axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
+                    var temp={"room_key":`${localStorage.getItem("room_key")}`}
+                    socket.emit("update_chat",temp)
                 })
             })
             .catch(function(error){
@@ -79,20 +87,29 @@ export default {
             })
         },
         processmessage:function(msg){
-            let vm = this
             this.message = msg
             this.debouncedmessage()
-            axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
-                .then(function(response){
-                    vm.messages = response.data
-                })
         }
     },
     mounted(){
+        let vm = this
         axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
-                .then(resp => {
-                    this.messages = resp.data
-                })
+            .then(resp => {
+                vm.messages = resp.data
+            })
     } 
 }
 </script>
+
+<style>
+    div.card{
+        border-style: solid;
+        border-radius: 5px;
+    }
+    footer.card-footer{
+        border-top: solid;
+    }
+    .message{
+        clear:both;
+    }
+</style>
