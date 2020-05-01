@@ -110,7 +110,7 @@ export default {
             this.debouncedmessage()
         },
         fromCurrentUser:function(msg_sender){
-            if (msg_sender == localStorage.getItem("email"))
+            if (msg_sender == this.$session.get('email'))
                 return true;
             else
                 return false;
@@ -118,7 +118,7 @@ export default {
         tempuser:function(nickname){
             this.$session.start()
             this.$session.set('email', nickname)
-            localStorage.email = nickname
+            this.$session.set('loggedIn', false)
             this.$router.go()
         }
     },

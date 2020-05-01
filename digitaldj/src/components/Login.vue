@@ -71,8 +71,10 @@ export default {
             axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
             .then(function(response){
                 if (response.status === 200){
+                    vm.$session.destroy()
                     vm.$session.start()
                     vm.$session.set('email', vm.email)
+                    vm.$session.set('loggedIn', true)
                     console.log("session started")
                     vm.$router.go()
                 }
