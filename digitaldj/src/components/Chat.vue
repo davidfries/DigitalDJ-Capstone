@@ -11,10 +11,19 @@
         <div class = "card">
             <div class="card-content">
                 <div class="content" v-chat-scroll="{always: false, smooth: true}">
-                    <div v-for="message in messages" :key="message.message_id">
-                        <span class="left">{{message.sender}}:</span>
+                    <div v-for="message in messages" v-bind:key="message.message_id">
                         <br>
-                        <span class="message">{{message.message}}</span>
+                        <div v-if="fromCurrentUser(message.sender)">
+                            <span class="right">{{message.sender}}:</span>
+                            <br>
+                            <span class="right pad message">{{message.message}}</span>
+                        </div>
+                        <div v-else>
+                            <span class="left">{{message.sender}}:</span>
+                            <br>
+                            <span class="left pad message">{{message.message}}</span>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>
@@ -27,14 +36,24 @@
                             :value="message"
                             placeholder="Send message"
                             maxlength="200"
-                            type="textarea">
+                            type="text">
                         </b-input>
                     </b-field>
-                    <b-button class="button right is-primary" @click="processmessage(message)">Send</b-button>
+                    <b-button class="send button right is-danger" @click="processmessage(message)">Send</b-button>
                 </form>
-                <p v-if="!this.$session.exists()">
-                    Please log in to send messages.
-                </p>
+                <form v-if="!this.$session.exists()" @submit.prevent="tempuser(nickname)">
+                    Please enter a nickname:
+                    <b-field class="left pad">
+                        <b-input
+                            v-model="nickname"
+                            :value="nickname"
+                            placeholder="Nickname"
+                            maxlength="20"
+                            type="text">
+                        </b-input>
+                    </b-field>
+                    <b-button class="send button right is-danger" @click="tempuser(nickname)">Set Name</b-button>
+                </form>
             </footer>
         </div>
     </section>
@@ -89,6 +108,18 @@ export default {
         processmessage:function(msg){
             this.message = msg
             this.debouncedmessage()
+        },
+        fromCurrentUser:function(msg_sender){
+            if (msg_sender == localStorage.getItem("email"))
+                return true;
+            else
+                return false;
+        },
+        tempuser:function(nickname){
+            this.$session.start()
+            this.$session.set('email', nickname)
+            localStorage.email = nickname
+            this.$router.go()
         }
     },
     mounted(){
@@ -106,10 +137,20 @@ export default {
         border-style: solid;
         border-radius: 5px;
     }
+    div.card-content{
+        max-height:500px;
+        overflow: scroll;
+    }
     footer.card-footer{
         border-top: solid;
+        max-height:150px;
     }
     .message{
-        clear:both;
+        color: white;
+        background-color: #4099FF;
+    }
+    .send{
+        margin-top:10px;
+        margin-left:10px;
     }
 </style>
