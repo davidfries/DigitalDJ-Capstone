@@ -41,9 +41,19 @@
                     </b-field>
                     <b-button class="send button right is-danger" @click="processmessage(message)">Send</b-button>
                 </form>
-                <p v-if="!this.$session.exists()">
-                    Please log in to send messages.
-                </p>
+                <form v-if="!this.$session.exists()" @submit.prevent="tempuser(nickname)">
+                    Please enter a nickname:
+                    <b-field class="left pad">
+                        <b-input
+                            v-model="nickname"
+                            :value="nickname"
+                            placeholder="Nickname"
+                            maxlength="20"
+                            type="text">
+                        </b-input>
+                    </b-field>
+                    <b-button class="send button right is-danger" @click="tempuser(nickname)">Set Name</b-button>
+                </form>
             </footer>
         </div>
     </section>
@@ -104,6 +114,12 @@ export default {
                 return true;
             else
                 return false;
+        },
+        tempuser:function(nickname){
+            this.$session.start()
+            this.$session.set('email', nickname)
+            localStorage.email = nickname
+            this.$router.go()
         }
     },
     mounted(){
