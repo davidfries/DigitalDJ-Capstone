@@ -4,15 +4,15 @@
             <div class="pad card flex-container">
                 <h1>My Account Information<br></h1>
                     <h2>Email: </h2>
-                        <p>{{this.$session.get('email')}}<br><br></p>
+                        <p>{{this.email}}<br><br></p>
                     <h2>Username: </h2>
-                        <p>{{this.$session.get('username')}}<br></p>
+                        <p>{{this.username}}<br></p>
                         <b-nav>
-                            <b-nav-item class="button pad is-primary"
+                            <b-nav-item id="reg" class="button pad is-primary"
                                 @click="isUsernameModalActive = true">
                                 Change Username
                             </b-nav-item>
-                            <b-nav-item class="button pad is-primary"
+                            <b-nav-item id="reg" class="button pad is-primary"
                                 @click="isPasswordModalActive = true">
                                 Change Password
                             </b-nav-item>
@@ -20,7 +20,7 @@
             </div>
             <br>
             <div class="pad card flex-container">
-                <h1>My Rooms<br></h1>
+                <h1>My Rooms (Coming Soon!)<br></h1>
                 <table class="container table">
                     <thead>
                         <th>Room Name</th>
@@ -56,7 +56,6 @@
                         </b-field>
                     </section>
                     <footer class="modal-card-foot">
-                        <!-- <button class="button" type="button" @click="$parent.close()">Close</button> -->
                         <div class="container has-text-centered">
                         <button class="button is-primary" @click="isUsernameModalActive=false">Change</button>
 
@@ -125,27 +124,33 @@
 </template>
 
 <script>
-//const axios = require("axios");
+const axios = require("axios");
 export default {
     name:"UserSettings",
     data(){
         return{
             isUsernameModalActive: false,
             isPasswordModalActive: false,
-            email: "",
+            email: this.$session.get('email'),
             password: "",
             newPassword: "",
             newPasswordValid: "",
-            username: "",
+            username: this.$session.get('username'),
             rooms: []
         }
     },
     methods:{
-        changePassword:function(){
-
-        },
         changeUsername:function(){
-            
+            let vm = this
+            axios.post('http://localhost:5000/settings/username', {"email":this.email, "username":this.username})
+            .then(function(response){
+                if (response.status === 200){
+                    vm.$session.set('username', vm.username)
+                }
+            })
+        },
+        changePassword:function(){
+            //let vm = this
         }
     }
 }

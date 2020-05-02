@@ -11,7 +11,6 @@ class DigitalDJBackend():
     
     #AUTHENTICATION METHODS
 
-    #def authuser(self, username, password, token):
     def authuser(self, email, password):
         query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
         try:
@@ -19,10 +18,15 @@ class DigitalDJBackend():
         except Exception as e:
             print("User authentication error {}".format(e))
 
-    def changepassword(self,password,token):
+    def changepassword(self,password,newpassword):
         pass
-    def changeusername(self,currusr,newusr,token):
-        pass
+
+    def changeusername(self,email,username):
+        query="UPDATE users SET username=:username WHERE email=:email"
+        try:
+            return self.db.query(query,email=email,username=username).as_dict(ordered=True)
+        except Exception as e:
+            print("Error updating username {}".format(e))
 
     def returnuser(self,username):
         return "Test User123"

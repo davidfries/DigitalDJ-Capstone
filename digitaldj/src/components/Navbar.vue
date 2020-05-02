@@ -38,7 +38,7 @@
                         <add-room></add-room>
                     </a>
                     <a v-if="isLoggedIn">
-                        <b-button tag="router-link" :to="{name: 'settings'}" class="button is-primary">
+                        <b-button id="reg" tag="router-link" :to="{name: 'settings'}" class="button is-primary">
                             Settings
                         </b-button>
                     </a>

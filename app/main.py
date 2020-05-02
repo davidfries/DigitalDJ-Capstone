@@ -139,6 +139,13 @@ def loginauth():
             print(e)
             print("Error in user authentication")
             return jsonify({"msg":"error in user authentication {}".format(e)})
+
+@app.route('/settings/username',methods=['POST'])
+def changeusername():
+    if request.method=='POST':
+        data=request.get_json()
+        db.changeusername(data['email'], data['username'])
+        return "success"
         
 # SONG VOTE API METHOD
 @app.route('/getsongvotecount',methods=['GET'])
