@@ -6,7 +6,7 @@
                     <h2>Email: </h2>
                         <p>{{this.email}}<br><br></p>
                     <h2>Username: </h2>
-                        <p>{{this.username}}<br></p>
+                        <p>{{this.username}}<br><br></p>
                         <b-nav>
                             <b-nav-item id="reg" class="button pad is-primary"
                                 @click="isUsernameModalActive = true">
@@ -150,7 +150,9 @@ export default {
             })
         },
         changePassword:function(){
-            //let vm = this
+            if (this.newPassword == this.newPasswordValid){
+                axios.post('http://localhost:5000/settings/password', {"email":this.email, "password":this.password, "newpassword":this.newPassword})
+            }
         }
     }
 }

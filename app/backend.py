@@ -1,4 +1,5 @@
 import records
+from flask import jsonify
 from secrets import Secrets as pw
 import random
 import string
@@ -18,8 +19,16 @@ class DigitalDJBackend():
         except Exception as e:
             print("User authentication error {}".format(e))
 
-    def changepassword(self,password,newpassword):
-        pass
+    def changepassword(self,email,password,newpassword):
+        # validate password first
+        query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
+        if(len(jsonify(self.db.query(query,email=email,password=password).as_dict(ordered=True)).data) > 0):
+            password = newpassword
+            query="UPDATE users SET password=crypt(:password, password) WHERE email=:email"
+            try:
+                self.db.query(query,email=email,password=newpassword).as_dict(ordered=True)
+            except Exception as e:
+                print("Error updating password {}".format(e))
 
     def changeusername(self,email,username):
         query="UPDATE users SET username=:username WHERE email=:email"

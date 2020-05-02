@@ -102,13 +102,16 @@ def addsong():
         data=request.get_json()
         song_key=db.addsong(data['room_key'],data['song_title'])
         return jsonify({"song_key":song_key})
+
+# USER API METHODS
 @app.route('/returnuser',methods=['GET','POST'])
 def returnuser():
     if request.method=='POST':
         # if(jsonify(request.get_json())['username']):
         return request.get_json()['username']  
         # else:
-        #     return "empty username field" 
+        #     return "empty username field"
+
 @app.route('/rooms',methods=['GET'])
 def getallrooms():
     if request.method=='GET':
@@ -131,8 +134,7 @@ def loginauth():
     if request.method=='POST':
         data=request.get_json()
         try:
-            db.authuser(data['email'],data['password'])
-            return "success"
+            return jsonify(db.authuser(data['email'],data['password']))
             #print("Successful user authentication")
             #return jsonify({"msg":"successful user authentication {}"})
         except Exception as e:
@@ -144,8 +146,25 @@ def loginauth():
 def changeusername():
     if request.method=='POST':
         data=request.get_json()
-        db.changeusername(data['email'], data['username'])
-        return "success"
+        try:
+            db.changeusername(data['email'], data['username'])
+            return "success"
+        except Exception as e:
+            print(e)
+            print("Error changing username")
+            return jsonify({"msg":"error changing username {}".format(e)})
+
+@app.route('/settings/password',methods=['POST'])
+def changepassword():
+    if request.method=='POST':
+        data=request.get_json()
+        try:
+            db.changepassword(data['email'], data['password'], data['newpassword'])
+            return "success"
+        except Exception as e:
+            print(e)
+            print("Error changing password")
+            return jsonify({"msg":"error changing password {}".format(e)})
         
 # SONG VOTE API METHOD
 @app.route('/getsongvotecount',methods=['GET'])
