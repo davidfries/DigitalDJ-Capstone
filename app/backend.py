@@ -33,12 +33,16 @@ class DigitalDJBackend():
     def changeusername(self,email,username):
         query="UPDATE users SET username=:username WHERE email=:email"
         try:
-            return self.db.query(query,email=email,username=username).as_dict(ordered=True)
+            self.db.query(query,email=email,username=username).as_dict(ordered=True)
         except Exception as e:
             print("Error updating username {}".format(e))
 
-    def returnuser(self,username):
-        return "Test User123"
+    def returnusername(self,email):
+        query="SELECT username FROM users WHERE email=:email"
+        try:
+            return self.db.query(query,email=email).as_dict(ordered=True)
+        except Exception as e:
+            print("Error returning username {}".format(e))
 
     def authstream(self,room_key,stream_key):
         sql="select * from auth_streams where room_key =:room_key and stream_key = :stream_key"

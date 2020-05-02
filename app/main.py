@@ -142,7 +142,7 @@ def loginauth():
             print("Error in user authentication")
             return jsonify({"msg":"error in user authentication {}".format(e)})
 
-@app.route('/settings/username',methods=['POST'])
+@app.route('/settings/username',methods=['POST', 'GET'])
 def changeusername():
     if request.method=='POST':
         data=request.get_json()
@@ -153,9 +153,17 @@ def changeusername():
             print(e)
             print("Error changing username")
             return jsonify({"msg":"error changing username {}".format(e)})
+    if request.method=='GET':
+        data=request.get_json()
+        try:
+            return jsonify(db.returnusername(data['email']))
+        except Exception as e:
+            print(e)
+            print("Error returning username")
+            return jsonify({"msg":"error returning username {}".format(e)})
 
 @app.route('/settings/password',methods=['POST'])
-def changepassword():
+def password():
     if request.method=='POST':
         data=request.get_json()
         try:

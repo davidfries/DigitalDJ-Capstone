@@ -135,9 +135,17 @@ export default {
             password: "",
             newPassword: "",
             newPasswordValid: "",
-            username: this.$session.get('username'),
+            username: "",
             rooms: []
         }
+    },
+    created(){
+        let vm = this
+        axios.get('http://localhost:5000/settings/username', {"email":this.email})
+            .then(function(response){
+                vm.$session.set('username', response.data)
+                vm.username = response.data.username
+            })
     },
     methods:{
         changeUsername:function(){
@@ -145,7 +153,9 @@ export default {
             axios.post('http://localhost:5000/settings/username', {"email":this.email, "username":this.username})
             .then(function(response){
                 if (response.status === 200){
-                    vm.$session.set('username', vm.username)
+                    vm.$session.set('username', response.data)
+                    console.log(response.data.username)
+                    vm.username = response.data.username
                 }
             })
         },
