@@ -12,6 +12,7 @@ import MainPage from './components/MainPage.vue'
 import Room from './components/Room.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
+import UserSettings from './components/UserSettings.vue'
 // try{
 // const socket = socketio('http://localhost:4113');
 // Vue.use(VueSocketIO, socket)
@@ -30,7 +31,7 @@ const routes = [
   { path: '/rooms', name:"rooms", component: Rooms},
   {path: '/', name:'home', component: MainPage},
   {path: '/room/:room_key', name:'room', component: Room, props:true},
-  
+  {path: '/settings', name:'settings', component: UserSettings},
   { path: '/about', name: "about", component: About, props: true },
   { path: '/contact', name: "contact", component: Contact, props: true },
 
