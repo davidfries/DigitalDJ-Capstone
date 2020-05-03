@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted() {
-    axios.get("https://api.digitaldj.live/rooms").then(resp => {
+    axios.get("http://api.digitaldj.live/rooms").then(resp => {
       // console.log(resp.data[0].max_quantity);
       this.data = resp.data;
     });

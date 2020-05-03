@@ -68,7 +68,7 @@ export default {
     methods:{
         login:function(){
             let vm = this
-            axios.post('https://api.digitaldj.live/login', {"email":this.email, "password":this.password})
+            axios.post('http://api.digitaldj.live/login', {"email":this.email, "password":this.password})
             .then(function(response){
                 if (response.data.length > 0){
                     vm.$session.destroy()

@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit, send,join_room, leave_room
 import json
 from backend import DigitalDJBackend
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://api.digitaldj.live"}},supports_credentials=True).init_app(app)
+CORS(app, resources={r"/*": {"origins": "http://digitaldj.live"}},supports_credentials=True).init_app(app)
 socketio = SocketIO(app)
 db=DigitalDJBackend()
 app.config['CORS_HEADERS'] = 'Content-Type'
