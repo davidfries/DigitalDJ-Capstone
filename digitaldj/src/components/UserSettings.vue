@@ -141,7 +141,7 @@ export default {
     },
     created(){
         let vm = this
-        axios.get(`http://localhost:5000/settings/username?email=${vm.email}`)
+        axios.get(`https://api.digitaldj.live/settings/username?email=${vm.email}`)
             .then(function(response){
                 vm.$session.set('username', response.data[0].username)
                 vm.username = response.data[0].username
@@ -150,7 +150,7 @@ export default {
     methods:{
         changeUsername:function(){
             let vm = this
-            axios.post('http://localhost:5000/settings/username', {"email":this.email, "username":this.username})
+            axios.post('https://api.digitaldj.live/settings/username', {"email":this.email, "username":this.username})
             .then(function(response){
                 if (response.status === 200){
                     vm.$session.set('username', response.data[0].username)
@@ -160,7 +160,7 @@ export default {
         },
         changePassword:function(){
             if (this.newPassword == this.newPasswordValid){
-                axios.post('http://localhost:5000/settings/password', {"email":this.email, "password":this.password, "newpassword":this.newPassword})
+                axios.post('https://api.digitaldj.live/settings/password', {"email":this.email, "password":this.password, "newpassword":this.newPassword})
             }
         }
     }

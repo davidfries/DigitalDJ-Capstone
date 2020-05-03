@@ -105,7 +105,7 @@ export default {
                 "max_listeners":this.max_listeners,
                 "stream_key":this.stream_key
             }
-        axios.post('http://localhost:5000/addroom',data).then(function(response){
+        axios.post('https://api.digitaldj.live/addroom',data).then(function(response){
             console.log(response)
         })
         
