@@ -28,16 +28,21 @@
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a v-if="!this.$session.exists()">
+                    <a v-if="!isLoggedIn">
                         <register></register>
                     </a>
-                    <a v-if="!this.$session.exists()">
+                    <a v-if="!isLoggedIn">
                         <login></login>
                     </a>
-                    <a v-if="this.$session.exists()">
+                    <a v-if="isLoggedIn">
                         <add-room></add-room>
                     </a>
-                    <a v-if="this.$session.exists()">
+                    <a v-if="isLoggedIn">
+                        <b-button id="reg" tag="router-link" :to="{name: 'settings'}" class="button is-primary">
+                            Settings
+                        </b-button>
+                    </a>
+                    <a v-if="isLoggedIn">
                         <logout></logout>
                     </a>
                 </div>
@@ -59,6 +64,11 @@ export default {
   },
   components:{
       Login,Register,Logout,AddRoom
+  },
+  computed:{
+      isLoggedIn:function(){
+          return (this.$session.exists() && this.$session.get('loggedIn'))
+      }
   }
 }
 </script>

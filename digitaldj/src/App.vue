@@ -35,6 +35,16 @@ export default {
 
 // THIS IS WHERE YOU EDIT COLORS FOR CSS PLEASE REFERENCE BULMA DOCS
 <style lang="scss">
+div.card{
+  border-style: solid;
+  border-radius: 5px;
+}
+div.flex-container{
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
 .right{
   float:right;
 }
@@ -44,6 +54,12 @@ export default {
 .pad{
   padding:10px;
 }
+h1, h2, h3 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+// Colors
 @import "~bulma/sass/utilities/_all";
 $primary: #4D658D;
 $danger: #432F75;

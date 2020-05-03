@@ -1,4 +1,5 @@
 import records
+from flask import jsonify
 from secrets import Secrets as pw
 import random
 import string
@@ -11,7 +12,6 @@ class DigitalDJBackend():
     
     #AUTHENTICATION METHODS
 
-    #def authuser(self, username, password, token):
     def authuser(self, email, password):
         query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
         try:
@@ -19,13 +19,30 @@ class DigitalDJBackend():
         except Exception as e:
             print("User authentication error {}".format(e))
 
-    def changepassword(self,password,token):
-        pass
-    def changeusername(self,currusr,newusr,token):
-        pass
+    def changepassword(self,email,password,newpassword):
+        # validate password first
+        query="SELECT client_key FROM users WHERE email=:email AND password=crypt(:password, password)"
+        if(len(jsonify(self.db.query(query,email=email,password=password).as_dict(ordered=True)).data) > 0):
+            password = newpassword
+            query="UPDATE users SET password=crypt(:password, password) WHERE email=:email"
+            try:
+                self.db.query(query,email=email,password=newpassword)
+            except Exception as e:
+                print("Error updating password {}".format(e))
 
-    def returnuser(self,username):
-        return "Test User123"
+    def changeusername(self,email,username):
+        query="UPDATE users SET username=:username WHERE email=:email"
+        try:
+            self.db.query(query,email=email,username=username)
+        except Exception as e:
+            print("Error updating username {}".format(e))
+
+    def returnusername(self,email):
+        query="SELECT username FROM users WHERE email=:email"
+        try:
+            return self.db.query(query,email=email).as_dict(ordered=True)
+        except Exception as e:
+            print("Error returning username {}".format(e))
 
     def authstream(self,room_key,stream_key):
         sql="select * from auth_streams where room_key =:room_key and stream_key = :stream_key"
