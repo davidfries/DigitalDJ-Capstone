@@ -58,17 +58,17 @@ export default {
     },
     created(){
         let vm=this
-        axios.get('http://api.digitaldj.live/newid').then(function(response){
+        axios.get('http://digitaldj.live:5000/newid').then(function(response){
             // console.log("new song key "+response.data.id)
             vm.song_key=response.data.id
         })
     },
     methods:{
         addsong:function(){
-            const socket = socketio("http://api.digitaldj.live");
+            const socket = socketio("http://digitaldj.live:5000");
             console.log(localStorage.getItem("room_key"))
             // console.log(this.song_key)
-            axios.post('http://api.digitaldj.live/addsong',{
+            axios.post('http://digitaldj.live:5000/addsong',{
                 "room_key":`${localStorage.getItem("room_key")}`,
                 // "song_key":this.song_key,
                 "song_title":this.songtitle

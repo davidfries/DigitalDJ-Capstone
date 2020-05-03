@@ -66,7 +66,7 @@
 import socketio from "socket.io-client";
 const axios = require("axios");
 const lo = require("lodash");
-const socket = socketio("http://api.digitaldj.live");
+const socket = socketio("http://digitaldj.live:5000");
 export default {
     name:"Chat",
     props:["chat_data"],
@@ -88,13 +88,13 @@ export default {
             if(this.$session.exists()){
                 vm.sender = this.$session.get('email')
             }
-            axios.post('http://api.digitaldj.live/chat', {
+            axios.post('http://digitaldj.live:5000/chat', {
                 "message":vm.message, 
                 "sender":vm.sender, 
                 "room_key":localStorage.getItem("room_key")
             })
             .then(function(){
-                axios.get(`http://api.digitaldj.live/chat?room_key=${localStorage.getItem("room_key")}`)
+                axios.get(`http://digitaldj.live:5000/chat?room_key=${localStorage.getItem("room_key")}`)
                 .then(function(response){
                     vm.messages = response.data
                     var temp={"room_key":`${localStorage.getItem("room_key")}`}
@@ -124,7 +124,7 @@ export default {
     },
     mounted(){
         let vm = this
-        axios.get(`http://api.digitaldj.live/chat?room_key=${localStorage.getItem("room_key")}`)
+        axios.get(`http://digitaldj.live:5000/chat?room_key=${localStorage.getItem("room_key")}`)
             .then(resp => {
                 vm.messages = resp.data
             })

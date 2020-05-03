@@ -72,18 +72,18 @@ export default {
   },
  destroyed(){
    console.log('destroyed room component')
-   const socket = socketio("http://api.digitaldj.live");
+   const socket = socketio("http://digitaldj.live:5000");
    var data ={"room_key":this.room_key,"client_key":this.client_key}
    socket.emit('leave_music_room',data)
  },
   mounted() {
         let vm=this
         // var client_key=''
-        // axios.get('http://api.digitaldj.live/newid').then(function(response){
+        // axios.get('http://digitaldj.live:5000/newid').then(function(response){
         //     console.log("new song key "+response.data.id)
         //     client_key=response.data.id
         // })
-const socket = socketio("http://api.digitaldj.live");
+const socket = socketio("http://digitaldj.live:5000");
   socket.on("connect",()=>{
     var data = { "room_key": this.room_key, "client_key": socket.id};
     socket.emit("room_connection", data);
@@ -115,7 +115,7 @@ const socket = socketio("http://api.digitaldj.live");
     localStorage.setItem("room_key", this.room_key);
     // var vm = this;
     axios
-      .get("http://api.digitaldj.live/getsongs?room_key=" + vm.room_key)
+      .get("http://digitaldj.live:5000/getsongs?room_key=" + vm.room_key)
       .then(function(response) {
         if (response.data) {
           // console.log(response.data);
