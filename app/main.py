@@ -154,9 +154,8 @@ def changeusername():
             print("Error changing username")
             return jsonify({"msg":"error changing username {}".format(e)})
     if request.method=='GET':
-        data=request.get_json()
         try:
-            return jsonify(db.returnusername(data['email']))
+            return jsonify(db.returnusername(request.args.get("email")))
         except Exception as e:
             print(e)
             print("Error returning username")

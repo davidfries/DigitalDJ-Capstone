@@ -26,14 +26,14 @@ class DigitalDJBackend():
             password = newpassword
             query="UPDATE users SET password=crypt(:password, password) WHERE email=:email"
             try:
-                self.db.query(query,email=email,password=newpassword).as_dict(ordered=True)
+                self.db.query(query,email=email,password=newpassword)
             except Exception as e:
                 print("Error updating password {}".format(e))
 
     def changeusername(self,email,username):
         query="UPDATE users SET username=:username WHERE email=:email"
         try:
-            self.db.query(query,email=email,username=username).as_dict(ordered=True)
+            self.db.query(query,email=email,username=username)
         except Exception as e:
             print("Error updating username {}".format(e))
 

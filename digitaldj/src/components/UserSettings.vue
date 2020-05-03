@@ -141,10 +141,10 @@ export default {
     },
     created(){
         let vm = this
-        axios.get('http://localhost:5000/settings/username', {"email":this.email})
+        axios.get(`http://localhost:5000/settings/username?email=${vm.email}`)
             .then(function(response){
-                vm.$session.set('username', response.data)
-                vm.username = response.data.username
+                vm.$session.set('username', response.data[0].username)
+                vm.username = response.data[0].username
             })
     },
     methods:{
@@ -153,9 +153,8 @@ export default {
             axios.post('http://localhost:5000/settings/username', {"email":this.email, "username":this.username})
             .then(function(response){
                 if (response.status === 200){
-                    vm.$session.set('username', response.data)
-                    console.log(response.data.username)
-                    vm.username = response.data.username
+                    vm.$session.set('username', response.data[0].username)
+                    vm.username = response.data[0].username
                 }
             })
         },

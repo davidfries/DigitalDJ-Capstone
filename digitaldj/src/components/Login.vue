@@ -70,7 +70,6 @@ export default {
             let vm = this
             axios.post('http://localhost:5000/login', {"email":this.email, "password":this.password})
             .then(function(response){
-                console.log(response.data.length)
                 if (response.data.length > 0){
                     vm.$session.destroy()
                     vm.$session.start()
