@@ -5,7 +5,7 @@ import json
 from backend import DigitalDJBackend
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://api.digitaldj.live"}},supports_credentials=True).init_app(app)
-socketio = SocketIO(app,cors_allowed_origins='*')
+socketio = SocketIO(app)
 db=DigitalDJBackend()
 app.config['CORS_HEADERS'] = 'Content-Type'
 
