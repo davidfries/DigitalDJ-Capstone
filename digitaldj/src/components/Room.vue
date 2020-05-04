@@ -115,6 +115,8 @@ const socket = socketio("http://digitaldj.live:5000");
     // PULL SONGS FROM DB FOR CURRENT ROOM
     localStorage.setItem("room_key", this.room_key);
     // var vm = this;
+    var temp={"room_key":`${localStorage.getItem("room_key")}`}
+        socket.emit("update_chat",temp)
     axios
       .get("http://digitaldj.live:5000/getsongs?room_key=" + vm.room_key)
       .then(function(response) {

@@ -79,8 +79,7 @@ export default {
     },
     created(){
         this.debouncedmessage=lo.debounce(this.sendmessage,500)
-        var temp={"room_key":`${localStorage.getItem("room_key")}`}
-        socket.emit("update_chat",temp)
+        
     },
     methods:{
         sendmessage:function(){
@@ -123,6 +122,7 @@ export default {
         }
     },
     mounted(){
+        
         let vm = this
         axios.get(`http://digitaldj.live:5000/chat?room_key=${localStorage.getItem("room_key")}`)
             .then(resp => {
