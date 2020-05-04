@@ -26,7 +26,7 @@
       </section>
 
       <section class="right chatbox">
-        <Chat v-bind:chat_data="chat_data"></Chat>
+        <Chat :chat_data="chat_data"></Chat>
       </section>
     </section>
   </div>
@@ -105,6 +105,7 @@ const socket = socketio("http://localhost:5000");
         vm.data=data
       });
       socket.on("client_chat_update",(resp)=>{
+        console.log("got the chat update")
         vm.chat_data = resp
       });
       

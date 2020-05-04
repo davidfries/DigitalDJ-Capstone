@@ -11,7 +11,7 @@
         <div class = "card">
             <div class="card-content">
                 <div class="content" v-chat-scroll="{always: false, smooth: true}">
-                    <div v-for="message in messages" v-bind:key="message.message_id">
+                    <div v-for="message in chat_data" v-bind:key="message.message_id">
                         <br>
                         <div v-if="fromCurrentUser(message.sender)">
                             <span class="right">{{message.sender}}:</span>
@@ -72,7 +72,7 @@ export default {
     props:["chat_data"],
     data(){
         return{
-            messages:this.chat_data,
+           
             message: "",
             sender: ""
         }
@@ -94,13 +94,13 @@ export default {
                 "room_key":localStorage.getItem("room_key")
             })
             .then(function(){
-                axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
-                .then(function(response){
-                    vm.messages = response.data
+                
+                    vm.message=""
+                    console.log(vm.messages)
                     var temp={"room_key":`${localStorage.getItem("room_key")}`}
                     socket.emit("update_chat",temp)
                 })
-            })
+            
             .catch(function(error){
                 console.log(error);
             })
@@ -126,7 +126,7 @@ export default {
         let vm = this
         axios.get(`http://localhost:5000/chat?room_key=${localStorage.getItem("room_key")}`)
             .then(resp => {
-                vm.messages = resp.data
+                vm.chat_data = resp.data
             })
     } 
 }
