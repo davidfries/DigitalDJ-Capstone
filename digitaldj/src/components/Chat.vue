@@ -136,6 +136,8 @@ export default {
     div.card-content{
         max-height:500px;
         overflow: scroll;
+        display:flex;
+        flex-direction: column-reverse;
     }
     footer.card-footer{
         border-top: solid;
