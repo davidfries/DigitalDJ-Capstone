@@ -12,7 +12,7 @@
     "buefy": "^0.8.15",
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.2",
     "socket.io-client": "^2.3.0",
     "video.js": "^7.7.5",
